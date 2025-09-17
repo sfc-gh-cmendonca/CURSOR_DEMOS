@@ -26,21 +26,21 @@ schema = "RAW_DATA"
 role = "SYSADMIN"
 ```
 
-### 3. Deploy the Demo
+### 3. Deploy the Enhanced Dual-Tool Demo
 ```bash
-python deploy_simple_demo.py
+python deploy_dual_tool_demo.py
 ```
 
-### 4. Configure Snowflake Intelligence Agents Manually
+### 4. Configure Sophisticated Dual-Tool Agents
 1. Log into Snowflake Intelligence UI
-2. **Follow the detailed guide**: `MANUAL_AGENT_SETUP.md`
-3. **Create two agents manually**:
-   - `Tech Earnings Analysis Assistant` (uses `earnings_analysis_semantic` view)
-   - `Tech Thematic Research Assistant` (uses `thematic_research_semantic` view)
-4. **Test both agents** with the sample questions provided
+2. **Follow the comprehensive guide**: `DUAL_TOOL_AGENT_SETUP.md`
+3. **Create two sophisticated agents**:
+   - `Tech Earnings Analysis Assistant` (Cortex Analyst + Cortex Search)
+   - `Tech Thematic Research Assistant` (Cortex Analyst + Cortex Search)
+4. **Test both agents** with the enhanced dual-tool questions
 
-### 5. Run the Demo
-Follow the detailed scripts in `DEMO_SCENARIO_SCRIPTS.md`
+### 5. Run the Enhanced Demo
+Follow the advanced scripts in `DUAL_TOOL_DEMO_SCRIPTS.md`
 
 ---
 

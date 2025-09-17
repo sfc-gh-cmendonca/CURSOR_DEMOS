@@ -114,3 +114,532 @@ syntax error line 4 at position 66 unexpected ','.
 syntax error line 4 at position 109 unexpected ']'.
 syntax error line 5 at position 16 unexpected ''Market showed high volatility in response to this event.''.
 2025-09-17 16:31:29,044 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 16:39:46,619 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:39:46,619 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:39:46,620 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 16:39:46,641 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 16:39:46,641 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 16:39:56,883 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 16:39:56,884 - INFO - 🏗️  Creating database structure...
+2025-09-17 16:39:56,884 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 16:39:56,959 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 16:39:56,959 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 16:39:57,031 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 16:39:57,031 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 16:39:57,132 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 16:39:57,132 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 16:39:57,393 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 16:39:57,393 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 16:39:57,517 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 16:39:57,625 - INFO - ✅ Database structure created successfully!
+2025-09-17 16:39:57,625 - INFO - 📊 Creating demo tables...
+2025-09-17 16:39:57,749 - INFO - 🔄 Creating companies table
+2025-09-17 16:39:58,129 - INFO - ✅ Creating companies table - Success
+2025-09-17 16:39:58,129 - INFO - 🔄 Creating stock_prices table
+2025-09-17 16:39:58,389 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 16:39:58,390 - INFO - 🔄 Creating earnings_data table
+2025-09-17 16:39:58,595 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 16:39:58,595 - INFO - 🔄 Creating research_reports table
+2025-09-17 16:39:58,773 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 16:39:58,773 - INFO - 🔄 Creating market_events table
+2025-09-17 16:39:59,138 - INFO - ✅ Creating market_events table - Success
+2025-09-17 16:39:59,138 - INFO - ✅ All tables created successfully!
+2025-09-17 16:39:59,138 - INFO - 👥 Loading company data...
+2025-09-17 16:40:04,597 - INFO - ✅ Company data loaded successfully!
+2025-09-17 16:40:04,598 - INFO - 📈 Generating earnings data...
+2025-09-17 16:40:33,697 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 16:40:33,699 - INFO - 📰 Generating market events...
+2025-09-17 16:40:33,827 - ERROR - ❌ SQL Error in : 001003 (42000): 01bf1d2c-0105-324b-0000-4df10b8206ca: SQL compilation error:
+syntax error line 4 at position 52 unexpected ','.
+syntax error line 4 at position 61 unexpected ']'.
+syntax error line 4 at position 64 unexpected 'ARRAY_CONSTRUCT'.
+syntax error line 4 at position 86 unexpected ','.
+syntax error line 4 at position 129 unexpected ']'.
+syntax error line 5 at position 16 unexpected ''Market showed high volatility in response to this event.''.
+2025-09-17 16:40:33,827 - ERROR - SQL: 
+            INSERT INTO market_events VALUES (
+                'FED_RATE_HIKE_2024_Q1', '2023-11-15',
+                'Federal Reserve Decision', 'Fed Raises Interest Rates by 0.75%', 'Federal Reserve implements aggressive rate hike to combat inflation, impacting growth stocks particularly in technology sector.',
+                'High', ARRAY_CONSTRUCT['Technology','Growth'], ARRAY_CONSTRUCT['AAPL','MSFT','GOOGL','NVDA','TSLA','META','SNOW'],
+                'Market showed high volatility in response to this event.',
+                CURRENT_TIMESTAMP()
+            )
+            
+2025-09-17 16:40:33,827 - ERROR - ❌ Deployment failed: 001003 (42000): 01bf1d2c-0105-324b-0000-4df10b8206ca: SQL compilation error:
+syntax error line 4 at position 52 unexpected ','.
+syntax error line 4 at position 61 unexpected ']'.
+syntax error line 4 at position 64 unexpected 'ARRAY_CONSTRUCT'.
+syntax error line 4 at position 86 unexpected ','.
+syntax error line 4 at position 129 unexpected ']'.
+syntax error line 5 at position 16 unexpected ''Market showed high volatility in response to this event.''.
+2025-09-17 16:40:34,200 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 16:48:59,682 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:48:59,683 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:48:59,683 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 16:48:59,703 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 16:48:59,703 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 16:49:06,692 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 16:49:06,692 - INFO - 🏗️  Creating database structure...
+2025-09-17 16:49:06,693 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 16:49:06,800 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 16:49:06,801 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 16:49:06,864 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 16:49:06,864 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 16:49:06,925 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 16:49:06,926 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 16:49:06,982 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 16:49:06,982 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 16:49:07,039 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 16:49:07,127 - INFO - ✅ Database structure created successfully!
+2025-09-17 16:49:07,127 - INFO - 📊 Creating demo tables...
+2025-09-17 16:49:07,251 - INFO - 🔄 Creating companies table
+2025-09-17 16:49:07,461 - INFO - ✅ Creating companies table - Success
+2025-09-17 16:49:07,462 - INFO - 🔄 Creating stock_prices table
+2025-09-17 16:49:07,676 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 16:49:07,676 - INFO - 🔄 Creating earnings_data table
+2025-09-17 16:49:07,941 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 16:49:07,942 - INFO - 🔄 Creating research_reports table
+2025-09-17 16:49:08,147 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 16:49:08,147 - INFO - 🔄 Creating market_events table
+2025-09-17 16:49:08,478 - INFO - ✅ Creating market_events table - Success
+2025-09-17 16:49:08,479 - INFO - ✅ All tables created successfully!
+2025-09-17 16:49:08,479 - INFO - 👥 Loading company data...
+2025-09-17 16:49:13,458 - INFO - ✅ Company data loaded successfully!
+2025-09-17 16:49:13,458 - INFO - 📈 Generating earnings data...
+2025-09-17 16:49:39,522 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 16:49:39,525 - INFO - 📰 Generating market events...
+2025-09-17 16:49:40,361 - ERROR - ❌ SQL Error in : 002014 (22000): 01bf1d35-0105-3178-0000-4df10b81ba7e: SQL compilation error:
+Invalid expression [ARRAY_CONSTRUCT('Technology', 'Growth')] in VALUES clause
+2025-09-17 16:49:40,361 - ERROR - SQL: 
+            INSERT INTO market_events VALUES (
+                'FED_RATE_HIKE_2024_Q1', '2023-11-15',
+                'Federal Reserve Decision', 'Fed Raises Interest Rates by 0.75%', 'Federal Reserve implements aggressive rate hike to combat inflation, impacting growth stocks particularly in technology sector.',
+                'High', ARRAY_CONSTRUCT('Technology','Growth'), ARRAY_CONSTRUCT('AAPL','MSFT','GOOGL','NVDA','TSLA','META','SNOW'),
+                'Market showed high volatility in response to this event.',
+                CURRENT_TIMESTAMP()
+            )
+            
+2025-09-17 16:49:40,361 - ERROR - ❌ Deployment failed: 002014 (22000): 01bf1d35-0105-3178-0000-4df10b81ba7e: SQL compilation error:
+Invalid expression [ARRAY_CONSTRUCT('Technology', 'Growth')] in VALUES clause
+2025-09-17 16:49:40,465 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 16:52:07,654 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:52:07,654 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:52:07,655 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 16:52:07,676 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 16:52:07,676 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 16:52:12,180 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 16:52:12,181 - INFO - 🏗️  Creating database structure...
+2025-09-17 16:52:12,181 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 16:52:12,264 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 16:52:12,265 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 16:52:12,366 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 16:52:12,367 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 16:52:12,430 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 16:52:12,431 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 16:52:12,520 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 16:52:12,520 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 16:52:12,717 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 16:52:12,830 - INFO - ✅ Database structure created successfully!
+2025-09-17 16:52:12,830 - INFO - 📊 Creating demo tables...
+2025-09-17 16:52:12,900 - INFO - 🔄 Creating companies table
+2025-09-17 16:52:13,267 - INFO - ✅ Creating companies table - Success
+2025-09-17 16:52:13,268 - INFO - 🔄 Creating stock_prices table
+2025-09-17 16:52:13,483 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 16:52:13,483 - INFO - 🔄 Creating earnings_data table
+2025-09-17 16:52:13,767 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 16:52:13,767 - INFO - 🔄 Creating research_reports table
+2025-09-17 16:52:14,038 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 16:52:14,039 - INFO - 🔄 Creating market_events table
+2025-09-17 16:52:14,281 - INFO - ✅ Creating market_events table - Success
+2025-09-17 16:52:14,281 - INFO - ✅ All tables created successfully!
+2025-09-17 16:52:14,281 - INFO - 👥 Loading company data...
+2025-09-17 16:52:18,569 - INFO - ✅ Company data loaded successfully!
+2025-09-17 16:52:18,570 - INFO - 📈 Generating earnings data...
+2025-09-17 16:52:43,027 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 16:52:43,028 - INFO - 📰 Generating market events...
+2025-09-17 16:52:45,969 - INFO - ✅ Market events generated successfully!
+2025-09-17 16:52:45,969 - INFO - 📄 Generating research reports...
+2025-09-17 16:52:47,090 - ERROR - ❌ SQL Error in : 001003 (42000): 01bf1d38-0105-3241-0000-4df10b822632: SQL compilation error:
+syntax error line 4 at position 58 unexpected 's'.
+syntax error line 4 at position 149 unexpected 'vector'.
+syntax error line 4 at position 156 unexpected 'databases'.
+syntax error line 4 at position 167 unexpected 'and'.
+syntax error line 4 at position 270 unexpected 'customer'.
+syntax error line 4 at position 279 unexpected 'concentration'.
+syntax error line 4 at position 294 unexpected 'execution'.
+syntax error line 4 at position 304 unexpected 'on'.
+syntax error line 11 at position 114 unexpected 'vector'.
+syntax error line 11 at position 121 unexpected 'databases'.
+syntax error line 11 at position 132 unexpected 'and'.
+syntax error line 14 at position 75 unexpected 'with'.
+syntax error line 17 at position 37 unexpected 'customer'.
+syntax error line 17 at position 46 unexpected 'concentration'.
+syntax error line 17 at position 61 unexpected 'execution'.
+syntax error line 17 at position 71 unexpected 'on'.
+parse error line 25 at position 13 near '<EOF>'.
+syntax error line 24 at position 15 unexpected 'CURRENT_TIMESTAMP'.
+syntax error line 25 at position 12 unexpected ')'.
+2025-09-17 16:52:47,090 - ERROR - SQL: 
+            INSERT INTO research_reports VALUES (
+                'RPT_SNOWFLAKE_DEEP_2024', 'Snowflake: AI-Native Data Cloud Leadership', 'Jennifer Liu', 'Growth Equity Research',
+                '2025-10-05', 'Company Deep Dive', 'Technology',
+                'SNOW', 'Data Cloud Platform', 'Snowflake's architecture uniquely positions it for the AI era. Native support for unstructured data, vector databases, and ML workloads creates competitive moats in the evolving data landscape.', 'Hyperscaler competition, customer concentration, execution on AI roadmap.',
+                180.0, 'Buy', 
+                'Analysis of Data Cloud Platform trends across technology sector',
+                '
+            Snowflake: AI-Native Data Cloud Leadership
+            
+            Executive Summary:
+            Snowflake''s architecture uniquely positions it for the AI era. Native support for unstructured data, vector databases, and ML workloads creates competitive moats in the evolving data landscape.
+            
+            Investment Thesis:
+            Our analysis indicates strong fundamentals driving this theme, with particular strength in enterprise adoption rates and technological barriers to entry.
+            
+            Key Risks:
+            Hyperscaler competition, customer concentration, execution on AI roadmap.
+            
+            Companies Covered:
+            SNOW
+            
+            Recommendation: Buy
+            Price Target: $180.0
+            ', CURRENT_TIMESTAMP()
+            )
+            
+2025-09-17 16:52:47,090 - ERROR - ❌ Deployment failed: 001003 (42000): 01bf1d38-0105-3241-0000-4df10b822632: SQL compilation error:
+syntax error line 4 at position 58 unexpected 's'.
+syntax error line 4 at position 149 unexpected 'vector'.
+syntax error line 4 at position 156 unexpected 'databases'.
+syntax error line 4 at position 167 unexpected 'and'.
+syntax error line 4 at position 270 unexpected 'customer'.
+syntax error line 4 at position 279 unexpected 'concentration'.
+syntax error line 4 at position 294 unexpected 'execution'.
+syntax error line 4 at position 304 unexpected 'on'.
+syntax error line 11 at position 114 unexpected 'vector'.
+syntax error line 11 at position 121 unexpected 'databases'.
+syntax error line 11 at position 132 unexpected 'and'.
+syntax error line 14 at position 75 unexpected 'with'.
+syntax error line 17 at position 37 unexpected 'customer'.
+syntax error line 17 at position 46 unexpected 'concentration'.
+syntax error line 17 at position 61 unexpected 'execution'.
+syntax error line 17 at position 71 unexpected 'on'.
+parse error line 25 at position 13 near '<EOF>'.
+syntax error line 24 at position 15 unexpected 'CURRENT_TIMESTAMP'.
+syntax error line 25 at position 12 unexpected ')'.
+2025-09-17 16:52:47,198 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 16:56:13,830 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:56:13,831 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:56:13,831 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 16:56:13,851 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 16:56:13,851 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 16:56:20,203 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 16:56:20,204 - INFO - 🏗️  Creating database structure...
+2025-09-17 16:56:20,204 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 16:56:20,289 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 16:56:20,289 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 16:56:20,370 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 16:56:20,370 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 16:56:20,477 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 16:56:20,477 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 16:56:20,536 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 16:56:20,536 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 16:56:20,639 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 16:56:20,721 - INFO - ✅ Database structure created successfully!
+2025-09-17 16:56:20,722 - INFO - 📊 Creating demo tables...
+2025-09-17 16:56:20,801 - INFO - 🔄 Creating companies table
+2025-09-17 16:56:21,048 - INFO - ✅ Creating companies table - Success
+2025-09-17 16:56:21,049 - INFO - 🔄 Creating stock_prices table
+2025-09-17 16:56:21,239 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 16:56:21,239 - INFO - 🔄 Creating earnings_data table
+2025-09-17 16:56:21,553 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 16:56:21,554 - INFO - 🔄 Creating research_reports table
+2025-09-17 16:56:21,754 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 16:56:21,754 - INFO - 🔄 Creating market_events table
+2025-09-17 16:56:21,973 - INFO - ✅ Creating market_events table - Success
+2025-09-17 16:56:21,973 - INFO - ✅ All tables created successfully!
+2025-09-17 16:56:21,973 - INFO - 👥 Loading company data...
+2025-09-17 16:56:26,365 - INFO - ✅ Company data loaded successfully!
+2025-09-17 16:56:26,366 - INFO - 📈 Generating earnings data...
+2025-09-17 16:56:49,608 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 16:56:49,610 - INFO - 📰 Generating market events...
+2025-09-17 16:56:51,676 - INFO - ✅ Market events generated successfully!
+2025-09-17 16:56:51,677 - INFO - 📄 Generating research reports...
+2025-09-17 16:56:52,995 - INFO - ✅ Research reports generated successfully!
+2025-09-17 16:56:52,995 - INFO - 🧠 Creating Cortex Analyst semantic views...
+2025-09-17 16:56:53,065 - INFO - 🔄 Creating earnings analysis semantic view
+2025-09-17 16:56:53,269 - INFO - ✅ Creating earnings analysis semantic view - Success
+2025-09-17 16:56:53,269 - INFO - 🔄 Creating thematic research semantic view
+2025-09-17 16:56:53,361 - ERROR - ❌ SQL Error in Creating thematic research semantic view: 001044 (42P13): 01bf1d3c-0105-324b-0000-4df10b8207be: SQL compilation error: error line 12 at position 12
+Invalid argument types for function 'ARRAY_TO_STRING': (VARCHAR(500), VARCHAR(2))
+2025-09-17 16:56:53,361 - ERROR - SQL: 
+        CREATE OR REPLACE VIEW thematic_research_semantic AS
+        SELECT 
+            r.report_id,
+            r.title,
+            r.author,
+            r.firm,
+            r.publish_date,
+            r.theme,
+            r.investment_thesis,
+            r.rating,
+            r.price_target,
+            ARRAY_TO_STRING(r.tickers_covered, ', ') as companies_covered,
+            r.sector
+        FROM RAW_DATA.research_reports r
+        WHERE r.sector = 'Technology'
+        
+2025-09-17 16:56:53,361 - ERROR - ❌ Deployment failed: 001044 (42P13): 01bf1d3c-0105-324b-0000-4df10b8207be: SQL compilation error: error line 12 at position 12
+Invalid argument types for function 'ARRAY_TO_STRING': (VARCHAR(500), VARCHAR(2))
+2025-09-17 16:56:53,453 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 16:58:26,060 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:58:26,061 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:58:26,063 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 16:58:26,082 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 16:58:26,082 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 16:58:36,731 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 16:58:36,732 - INFO - 🏗️  Creating database structure...
+2025-09-17 16:58:36,732 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 16:58:36,819 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 16:58:36,819 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 16:58:36,889 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 16:58:36,889 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 16:58:36,952 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 16:58:36,953 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 16:58:37,020 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 16:58:37,020 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 16:58:37,086 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 16:58:37,158 - INFO - ✅ Database structure created successfully!
+2025-09-17 16:58:37,158 - INFO - 📊 Creating demo tables...
+2025-09-17 16:58:37,269 - INFO - 🔄 Creating companies table
+2025-09-17 16:58:37,527 - INFO - ✅ Creating companies table - Success
+2025-09-17 16:58:37,527 - INFO - 🔄 Creating stock_prices table
+2025-09-17 16:58:37,755 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 16:58:37,755 - INFO - 🔄 Creating earnings_data table
+2025-09-17 16:58:38,562 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 16:58:38,562 - INFO - 🔄 Creating research_reports table
+2025-09-17 16:58:38,792 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 16:58:38,793 - INFO - 🔄 Creating market_events table
+2025-09-17 16:58:38,990 - INFO - ✅ Creating market_events table - Success
+2025-09-17 16:58:38,990 - INFO - ✅ All tables created successfully!
+2025-09-17 16:58:38,990 - INFO - 👥 Loading company data...
+2025-09-17 16:58:43,131 - INFO - ✅ Company data loaded successfully!
+2025-09-17 16:58:43,131 - INFO - 📈 Generating earnings data...
+2025-09-17 16:59:05,854 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 16:59:05,856 - INFO - 📰 Generating market events...
+2025-09-17 16:59:08,440 - INFO - ✅ Market events generated successfully!
+2025-09-17 16:59:08,440 - INFO - 📄 Generating research reports...
+2025-09-17 16:59:09,651 - INFO - ✅ Research reports generated successfully!
+2025-09-17 16:59:09,651 - INFO - 🧠 Creating Cortex Analyst semantic views...
+2025-09-17 16:59:09,718 - INFO - 🔄 Creating earnings analysis semantic view
+2025-09-17 16:59:10,104 - INFO - ✅ Creating earnings analysis semantic view - Success
+2025-09-17 16:59:10,104 - INFO - 🔄 Creating thematic research semantic view
+2025-09-17 16:59:10,315 - INFO - ✅ Creating thematic research semantic view - Success
+2025-09-17 16:59:10,315 - INFO - ✅ Semantic views created successfully!
+2025-09-17 16:59:10,315 - INFO - 🏪 Setting up Snowflake Marketplace integration...
+2025-09-17 16:59:10,316 - INFO - 🔄 Setting up marketplace data integration
+2025-09-17 16:59:10,792 - ERROR - ❌ SQL Error in Setting up marketplace data integration: 000008 (0A000): 01bf1d3f-0105-3247-0000-4df10b81f6f6: Actual statement count 2 did not match the desired statement count 1.
+2025-09-17 16:59:10,792 - ERROR - SQL: 
+            -- This would typically reference a shared database from Snowflake Marketplace
+            -- Example: ECONOMICS_DATA_ATLAS or FINANCIAL_ECONOMIC_ESSENTIALS
+            
+            CREATE SCHEMA IF NOT EXISTS MARKETPLACE_DATA;
+            
+            -- Placeholder for marketplace economic indicators
+            CREATE OR REPLACE VIEW MARKETPLACE_DATA.economic_indicators AS
+            SELECT 
+                'GDP_GROWTH' as indicator_name,
+                CURRENT_DATE() - INTERVAL '30 days' as indicator_date,
+                2.3 as indicator_value,
+                'Quarterly GDP Growth Rate (%)' as description
+            UNION ALL
+            SELECT 
+                'UNEMPLOYMENT_RATE',
+                CURRENT_DATE() - INTERVAL '15 days',
+                3.8,
+                'Monthly Unemployment Rate (%)'
+            UNION ALL
+            SELECT 
+                'FEDERAL_FUNDS_RATE',
+                CURRENT_DATE() - INTERVAL '7 days',
+                5.25,
+                'Federal Funds Rate (%)'
+            
+2025-09-17 16:59:10,792 - WARNING - ⚠️  Marketplace setup skipped (expected in demo): 000008 (0A000): 01bf1d3f-0105-3247-0000-4df10b81f6f6: Actual statement count 2 did not match the desired statement count 1.
+2025-09-17 16:59:10,792 - INFO - 🔍 Creating Cortex Search services...
+2025-09-17 16:59:10,882 - INFO - 🔄 Creating research reports search service
+2025-09-17 16:59:11,034 - ERROR - ❌ SQL Error in Creating research reports search service: 090080 (22000): 01bf1d3f-0105-323c-0000-4df10b81e666: Warehouse 'COMPUTE_WH' does not exist.
+2025-09-17 16:59:11,034 - ERROR - SQL: 
+            CREATE CORTEX SEARCH SERVICE IF NOT EXISTS research_reports_search
+            ON full_content
+            ATTRIBUTES title, author, firm, theme, rating
+            WAREHOUSE = COMPUTE_WH
+            TARGET_LAG = '1 hour'
+            AS (
+                SELECT 
+                    report_id,
+                    title,
+                    author,
+                    firm,
+                    theme,
+                    rating,
+                    full_content
+                FROM RAW_DATA.research_reports
+            )
+            
+2025-09-17 16:59:11,034 - WARNING - ⚠️  Cortex Search service creation requires appropriate privileges: 090080 (22000): 01bf1d3f-0105-323c-0000-4df10b81e666: Warehouse 'COMPUTE_WH' does not exist.
+2025-09-17 16:59:11,034 - INFO - 📝 Manual setup may be required for Cortex Search services
+2025-09-17 16:59:11,034 - INFO - 🤖 Creating demo agent configurations...
+2025-09-17 16:59:11,038 - INFO - ✅ Agent configurations created in snowflake_intelligence_agents/
+2025-09-17 16:59:11,038 - INFO - ✅ Validating deployment...
+2025-09-17 16:59:11,139 - INFO - ✅ Companies data: 10 records
+2025-09-17 16:59:11,256 - INFO - ✅ Earnings data: 56 records
+2025-09-17 16:59:11,413 - INFO - ✅ Market events: 5 records
+2025-09-17 16:59:11,518 - INFO - ✅ Research reports: 3 records
+2025-09-17 16:59:11,964 - INFO - ✅ Earnings semantic view: 56 records
+2025-09-17 16:59:12,536 - INFO - ✅ Thematic semantic view: 3 records
+2025-09-17 16:59:12,536 - INFO - 🎉 All validations passed! Demo is ready.
+2025-09-17 16:59:12,536 - INFO - 🎉 JPMC Markets AI Demo deployment completed successfully!
+2025-09-17 16:59:12,536 - INFO - 📊 Database: MARKETS_AI_DEMO
+2025-09-17 16:59:12,536 - INFO - 🎯 Focus: Technology sector including SNOW
+2025-09-17 16:59:12,536 - INFO - 📅 Data range: 2023-10-01 to 2025-09-30
+2025-09-17 16:59:12,536 - INFO - 📁 Agent configs: ./snowflake_intelligence_agents/
+2025-09-17 16:59:12,619 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 17:02:58,339 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 17:02:58,339 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 17:02:58,339 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 17:02:58,359 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 17:02:58,360 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 17:03:05,769 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 17:03:05,769 - INFO - 🏗️  Creating database structure...
+2025-09-17 17:03:05,769 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 17:03:05,856 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 17:03:05,856 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 17:03:05,992 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 17:03:05,992 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 17:03:06,114 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 17:03:06,115 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 17:03:06,195 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 17:03:06,196 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 17:03:06,280 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 17:03:06,397 - INFO - ✅ Database structure created successfully!
+2025-09-17 17:03:06,397 - INFO - 📊 Creating demo tables...
+2025-09-17 17:03:06,480 - INFO - 🔄 Creating companies table
+2025-09-17 17:03:06,827 - INFO - ✅ Creating companies table - Success
+2025-09-17 17:03:06,827 - INFO - 🔄 Creating stock_prices table
+2025-09-17 17:03:07,548 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 17:03:07,548 - INFO - 🔄 Creating earnings_data table
+2025-09-17 17:03:07,852 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 17:03:07,853 - INFO - 🔄 Creating research_reports table
+2025-09-17 17:03:08,268 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 17:03:08,268 - INFO - 🔄 Creating market_events table
+2025-09-17 17:03:08,596 - INFO - ✅ Creating market_events table - Success
+2025-09-17 17:03:08,596 - INFO - ✅ All tables created successfully!
+2025-09-17 17:03:08,596 - INFO - 👥 Loading company data...
+2025-09-17 17:03:13,936 - INFO - ✅ Company data loaded successfully!
+2025-09-17 17:03:13,938 - INFO - 📈 Generating earnings data...
+2025-09-17 17:03:44,100 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 17:03:44,102 - INFO - 📰 Generating market events...
+2025-09-17 17:03:46,983 - INFO - ✅ Market events generated successfully!
+2025-09-17 17:03:46,984 - INFO - 📄 Generating research reports...
+2025-09-17 17:03:48,402 - INFO - ✅ Research reports generated successfully!
+2025-09-17 17:03:48,402 - INFO - 🧠 Creating Cortex Analyst semantic views...
+2025-09-17 17:03:48,497 - INFO - 🔄 Creating earnings analysis semantic view
+2025-09-17 17:03:48,903 - INFO - ✅ Creating earnings analysis semantic view - Success
+2025-09-17 17:03:48,903 - INFO - 🔄 Creating thematic research semantic view
+2025-09-17 17:03:49,190 - INFO - ✅ Creating thematic research semantic view - Success
+2025-09-17 17:03:49,190 - INFO - ✅ Semantic views created successfully!
+2025-09-17 17:03:49,191 - INFO - 🏪 Setting up Snowflake Marketplace integration...
+2025-09-17 17:03:49,191 - INFO - 🔄 Creating marketplace schema
+2025-09-17 17:03:49,311 - INFO - ✅ Creating marketplace schema - Success
+2025-09-17 17:03:49,311 - INFO - 🔄 Creating marketplace economic indicators view
+2025-09-17 17:03:49,524 - INFO - ✅ Creating marketplace economic indicators view - Success
+2025-09-17 17:03:49,525 - INFO - ✅ Marketplace integration configured!
+2025-09-17 17:03:49,525 - INFO - 📝 Note: In production, replace with actual Snowflake Marketplace shared database
+2025-09-17 17:03:49,525 - INFO - 🔍 Creating Cortex Search services...
+2025-09-17 17:03:49,614 - INFO - 🔄 Creating research reports search service
+2025-09-17 17:03:56,388 - INFO - ✅ Creating research reports search service - Success
+2025-09-17 17:03:56,390 - INFO - ✅ Cortex Search services created successfully!
+2025-09-17 17:03:56,390 - INFO - 🤖 Creating demo agent configurations...
+2025-09-17 17:03:56,391 - INFO - ✅ Agent configurations created in snowflake_intelligence_agents/
+2025-09-17 17:03:56,391 - INFO - ✅ Validating deployment...
+2025-09-17 17:03:56,699 - INFO - ✅ Companies data: 10 records
+2025-09-17 17:03:56,869 - INFO - ✅ Earnings data: 56 records
+2025-09-17 17:03:57,170 - INFO - ✅ Market events: 5 records
+2025-09-17 17:03:57,392 - INFO - ✅ Research reports: 3 records
+2025-09-17 17:03:57,888 - INFO - ✅ Earnings semantic view: 56 records
+2025-09-17 17:03:57,991 - INFO - ✅ Thematic semantic view: 3 records
+2025-09-17 17:03:57,991 - INFO - 🎉 All validations passed! Demo is ready.
+2025-09-17 17:03:57,991 - INFO - 🎉 JPMC Markets AI Demo deployment completed successfully!
+2025-09-17 17:03:57,991 - INFO - 📊 Database: MARKETS_AI_DEMO
+2025-09-17 17:03:57,992 - INFO - 🎯 Focus: Technology sector including SNOW
+2025-09-17 17:03:57,992 - INFO - 📅 Data range: 2023-10-01 to 2025-09-30
+2025-09-17 17:03:57,992 - INFO - 📁 Agent configs: ./snowflake_intelligence_agents/
+2025-09-17 17:03:58,104 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 17:06:37,401 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 17:06:37,401 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 17:06:37,402 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 17:06:37,422 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 17:06:37,422 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 17:06:47,010 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 17:06:47,011 - INFO - 🏗️  Creating database structure...
+2025-09-17 17:06:47,012 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 17:06:47,146 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 17:06:47,146 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 17:06:47,216 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 17:06:47,217 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 17:06:47,533 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 17:06:47,533 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 17:06:47,614 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 17:06:47,614 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 17:06:47,734 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 17:06:47,833 - INFO - ✅ Database structure created successfully!
+2025-09-17 17:06:47,833 - INFO - 📊 Creating demo tables...
+2025-09-17 17:06:48,049 - INFO - 🔄 Creating companies table
+2025-09-17 17:06:48,308 - INFO - ✅ Creating companies table - Success
+2025-09-17 17:06:48,308 - INFO - 🔄 Creating stock_prices table
+2025-09-17 17:06:48,622 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 17:06:48,622 - INFO - 🔄 Creating earnings_data table
+2025-09-17 17:06:48,919 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 17:06:48,919 - INFO - 🔄 Creating research_reports table
+2025-09-17 17:06:49,214 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 17:06:49,214 - INFO - 🔄 Creating market_events table
+2025-09-17 17:06:49,529 - INFO - ✅ Creating market_events table - Success
+2025-09-17 17:06:49,530 - INFO - ✅ All tables created successfully!
+2025-09-17 17:06:49,531 - INFO - 👥 Loading company data...
+2025-09-17 17:06:54,163 - INFO - ✅ Company data loaded successfully!
+2025-09-17 17:06:54,163 - INFO - 📈 Generating earnings data...
+2025-09-17 17:07:21,703 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 17:07:21,704 - INFO - 📰 Generating market events...
+2025-09-17 17:07:23,996 - INFO - ✅ Market events generated successfully!
+2025-09-17 17:07:23,997 - INFO - 📄 Generating research reports...
+2025-09-17 17:07:25,667 - INFO - ✅ Research reports generated successfully!
+2025-09-17 17:07:25,667 - INFO - 🧠 Creating Cortex Analyst semantic views...
+2025-09-17 17:07:25,755 - INFO - 🔄 Creating earnings analysis semantic view
+2025-09-17 17:07:26,057 - INFO - ✅ Creating earnings analysis semantic view - Success
+2025-09-17 17:07:26,057 - INFO - 🔄 Creating thematic research semantic view
+2025-09-17 17:07:26,833 - INFO - ✅ Creating thematic research semantic view - Success
+2025-09-17 17:07:26,834 - INFO - ✅ Semantic views created successfully!
+2025-09-17 17:07:26,834 - INFO - 🏪 Setting up Snowflake Marketplace integration...
+2025-09-17 17:07:26,834 - INFO - ⚠️  Skipping Marketplace integration - can be set up manually later
+2025-09-17 17:07:26,834 - INFO - 📝 Note: In production, connect to actual Snowflake Marketplace shared database
+2025-09-17 17:07:26,834 - INFO - ✅ Marketplace integration setup completed (skipped for compatibility)
+2025-09-17 17:07:26,834 - INFO - 🔍 Creating Cortex Search services...
+2025-09-17 17:07:26,834 - INFO - ⚠️  Skipping Cortex Search services - can be set up manually later
+2025-09-17 17:07:26,834 - INFO - 📝 Note: Cortex Search requires special privileges and may not be available in all environments
+2025-09-17 17:07:26,834 - INFO - ✅ Search services setup completed (skipped for compatibility)
+2025-09-17 17:07:26,834 - INFO - 🤖 Creating demo agent configurations...
+2025-09-17 17:07:26,836 - INFO - ✅ Agent configurations created in snowflake_intelligence_agents/
+2025-09-17 17:07:26,836 - INFO - ✅ Validating deployment...
+2025-09-17 17:07:27,074 - INFO - ✅ Companies data: 10 records
+2025-09-17 17:07:27,216 - INFO - ✅ Earnings data: 56 records
+2025-09-17 17:07:27,348 - INFO - ✅ Market events: 5 records
+2025-09-17 17:07:27,459 - INFO - ✅ Research reports: 3 records
+2025-09-17 17:07:27,832 - INFO - ✅ Earnings semantic view: 56 records
+2025-09-17 17:07:28,056 - INFO - ✅ Thematic semantic view: 3 records
+2025-09-17 17:07:28,057 - INFO - 🎉 All validations passed! Demo is ready.
+2025-09-17 17:07:28,057 - INFO - 🎉 JPMC Markets AI Demo deployment completed successfully!
+2025-09-17 17:07:28,057 - INFO - 📊 Database: MARKETS_AI_DEMO
+2025-09-17 17:07:28,057 - INFO - 🎯 Focus: Technology sector including SNOW
+2025-09-17 17:07:28,058 - INFO - 📅 Data range: 2023-10-01 to 2025-09-30
+2025-09-17 17:07:28,058 - INFO - 📁 Agent configs: ./snowflake_intelligence_agents/
+2025-09-17 17:07:28,218 - INFO - 🔌 Snowflake connection closed.
