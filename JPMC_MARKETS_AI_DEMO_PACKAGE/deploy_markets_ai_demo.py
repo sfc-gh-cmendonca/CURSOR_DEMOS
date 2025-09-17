@@ -668,13 +668,11 @@ class MarketsAIDemoDeployment:
         # For demo purposes, we'll create a placeholder structure
         
         try:
-            marketplace_setup_sql = """
-            -- This would typically reference a shared database from Snowflake Marketplace
-            -- Example: ECONOMICS_DATA_ATLAS or FINANCIAL_ECONOMIC_ESSENTIALS
+            # Create schema first
+            self.execute_sql("CREATE SCHEMA IF NOT EXISTS MARKETPLACE_DATA", "Creating marketplace schema")
             
-            CREATE SCHEMA IF NOT EXISTS MARKETPLACE_DATA;
-            
-            -- Placeholder for marketplace economic indicators
+            # Create view separately
+            marketplace_view_sql = """
             CREATE OR REPLACE VIEW MARKETPLACE_DATA.economic_indicators AS
             SELECT 
                 'GDP_GROWTH' as indicator_name,
@@ -695,7 +693,7 @@ class MarketsAIDemoDeployment:
                 'Federal Funds Rate (%)'
             """
             
-            self.execute_sql(marketplace_setup_sql, "Setting up marketplace data integration")
+            self.execute_sql(marketplace_view_sql, "Creating marketplace economic indicators view")
             
             logger.info("✅ Marketplace integration configured!")
             logger.info("📝 Note: In production, replace with actual Snowflake Marketplace shared database")
@@ -715,7 +713,7 @@ class MarketsAIDemoDeployment:
             CREATE CORTEX SEARCH SERVICE IF NOT EXISTS research_reports_search
             ON full_content
             ATTRIBUTES title, author, firm, theme, rating
-            WAREHOUSE = COMPUTE_WH
+            WAREHOUSE = DEMO_WH
             TARGET_LAG = '1 hour'
             AS (
                 SELECT 
