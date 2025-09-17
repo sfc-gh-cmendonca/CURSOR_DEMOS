@@ -272,7 +272,7 @@ class MarketsAIDemoDeployment:
         """
         self.execute_sql(earnings_sql, "Creating earnings_data table")
         
-        # Research reports table for thematic research
+        # Research reports table for thematic research (simplified without ARRAY columns)
         research_reports_sql = """
         CREATE OR REPLACE TABLE research_reports (
             report_id VARCHAR(50) PRIMARY KEY,
@@ -282,7 +282,7 @@ class MarketsAIDemoDeployment:
             publish_date DATE,
             report_type VARCHAR(100),
             sector VARCHAR(100),
-            tickers_covered ARRAY,
+            tickers_covered VARCHAR(500),
             theme VARCHAR(200),
             investment_thesis TEXT,
             key_risks TEXT,
@@ -295,7 +295,7 @@ class MarketsAIDemoDeployment:
         """
         self.execute_sql(research_reports_sql, "Creating research_reports table")
         
-        # Market events table
+        # Market events table (simplified without ARRAY columns)
         market_events_sql = """
         CREATE OR REPLACE TABLE market_events (
             event_id VARCHAR(50) PRIMARY KEY,
@@ -304,8 +304,8 @@ class MarketsAIDemoDeployment:
             title VARCHAR(500),
             description TEXT,
             impact_level VARCHAR(20),
-            affected_sectors ARRAY,
-            affected_tickers ARRAY,
+            affected_sectors VARCHAR(500),
+            affected_tickers VARCHAR(500),
             market_reaction_summary TEXT,
             created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
         )
@@ -486,15 +486,15 @@ class MarketsAIDemoDeployment:
         ]
         
         for event in events:
-            # Create proper Snowflake ARRAY_CONSTRUCT syntax with parentheses
-            sectors_list = ",".join(f"'{s}'" for s in event["sectors"])
-            tickers_list = ",".join(f"'{t}'" for t in event["tickers"])
+            # Create simple comma-separated strings instead of ARRAY
+            sectors_str = ", ".join(event["sectors"])
+            tickers_str = ", ".join(event["tickers"])
             
             insert_sql = f"""
             INSERT INTO market_events VALUES (
                 '{event["id"]}', '{event["date"].strftime('%Y-%m-%d')}',
                 '{event["type"]}', '{event["title"]}', '{event["description"]}',
-                '{event["impact"]}', ARRAY_CONSTRUCT({sectors_list}), ARRAY_CONSTRUCT({tickers_list}),
+                '{event["impact"]}', '{sectors_str}', '{tickers_str}',
                 'Market showed {event["impact"].lower()} volatility in response to this event.',
                 CURRENT_TIMESTAMP()
             )
@@ -553,7 +553,8 @@ class MarketsAIDemoDeployment:
         ]
         
         for report in reports:
-            tickers_list = ",".join(f"'{t}'" for t in report["tickers"])
+            # Create simple comma-separated string instead of ARRAY
+            tickers_str = ", ".join(report["tickers"])
             
             # Generate realistic price target for primary ticker
             if report["tickers"][0] == "SNOW":
@@ -590,7 +591,7 @@ class MarketsAIDemoDeployment:
             INSERT INTO research_reports VALUES (
                 '{report["id"]}', '{report["title"]}', '{report["author"]}', '{report["firm"]}',
                 '{report["date"].strftime('%Y-%m-%d')}', '{report["type"]}', '{report["sector"]}',
-                ARRAY_CONSTRUCT({tickers_list}), '{report["theme"]}', '{report["thesis"]}', '{report["risks"]}',
+                '{tickers_str}', '{report["theme"]}', '{report["thesis"]}', '{report["risks"]}',
                 {price_target}, '{rating}', 
                 'Analysis of {report["theme"]} trends across technology sector',
                 '{full_content.replace("'", "''")}', CURRENT_TIMESTAMP()
