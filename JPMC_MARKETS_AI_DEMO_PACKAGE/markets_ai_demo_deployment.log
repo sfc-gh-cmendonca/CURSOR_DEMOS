@@ -1,0 +1,116 @@
+2025-09-17 16:20:05,090 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:20:05,090 - ERROR - ❌ Failed to connect to Snowflake: connections.toml not found. Please ensure it exists in one of these locations:
+/Users/cmendonca/.config/snowflake/connections.toml
+/Users/cmendonca/Library/Application Support/snowflake/connections.toml
+/Users/cmendonca/AppData/Local/snowflake/connections.toml
+connections.toml
+2025-09-17 16:20:05,090 - ERROR - ❌ Deployment failed: connections.toml not found. Please ensure it exists in one of these locations:
+/Users/cmendonca/.config/snowflake/connections.toml
+/Users/cmendonca/Library/Application Support/snowflake/connections.toml
+/Users/cmendonca/AppData/Local/snowflake/connections.toml
+connections.toml
+2025-09-17 16:27:00,133 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:27:00,133 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:27:00,134 - ERROR - ❌ Failed to connect to Snowflake: "Connection 'default' not found in /Users/cmendonca/.config/snowflake/connections.toml"
+2025-09-17 16:27:00,134 - ERROR - ❌ Deployment failed: "Connection 'default' not found in /Users/cmendonca/.config/snowflake/connections.toml"
+2025-09-17 16:27:22,931 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:27:22,931 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:27:22,932 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 16:27:22,951 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 16:27:22,952 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 16:27:34,118 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 16:27:34,120 - INFO - 🏗️  Creating database structure...
+2025-09-17 16:27:34,120 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 16:27:34,199 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 16:27:34,199 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 16:27:34,303 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 16:27:34,303 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 16:27:34,397 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 16:27:34,398 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 16:27:34,518 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 16:27:34,519 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 16:27:34,649 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 16:27:34,823 - INFO - ✅ Database structure created successfully!
+2025-09-17 16:27:34,823 - INFO - 📊 Creating demo tables...
+2025-09-17 16:27:34,950 - INFO - 🔄 Creating companies table
+2025-09-17 16:27:35,240 - INFO - ✅ Creating companies table - Success
+2025-09-17 16:27:35,240 - INFO - 🔄 Creating stock_prices table
+2025-09-17 16:27:35,470 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 16:27:35,471 - INFO - 🔄 Creating earnings_data table
+2025-09-17 16:27:35,821 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 16:27:35,821 - INFO - 🔄 Creating research_reports table
+2025-09-17 16:27:36,072 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 16:27:36,072 - INFO - 🔄 Creating market_events table
+2025-09-17 16:27:36,268 - INFO - ✅ Creating market_events table - Success
+2025-09-17 16:27:36,269 - INFO - ✅ All tables created successfully!
+2025-09-17 16:27:36,269 - INFO - 👥 Loading company data...
+2025-09-17 16:27:36,583 - ERROR - ❌ SQL Error in : 000606 (57P03): 01bf1d1f-0105-3241-0000-4df10b822516: No active warehouse selected in the current session.  Select an active warehouse with the 'use warehouse' command.
+
+2025-09-17 16:27:36,583 - ERROR - SQL: 
+            INSERT INTO companies (ticker, company_name, sector, industry, market_cap_billions, 
+                                 headquarters, founded_year, employee_count, business_description)
+            VALUES ('AAPL', 'Apple Inc.', 'Technology', 'Consumer Electronics', 3000.0, 
+                   'Cupertino, CA', 1976, 164000, 'Apple designs and manufactures consumer electronics, software, and online services.')
+            
+2025-09-17 16:27:36,583 - ERROR - ❌ Deployment failed: 000606 (57P03): 01bf1d1f-0105-3241-0000-4df10b822516: No active warehouse selected in the current session.  Select an active warehouse with the 'use warehouse' command.
+
+2025-09-17 16:27:37,059 - INFO - 🔌 Snowflake connection closed.
+2025-09-17 16:30:34,828 - INFO - 🚀 Starting JPMC Markets AI Demo deployment...
+2025-09-17 16:30:34,828 - INFO - Loading connection config from: /Users/cmendonca/.config/snowflake/connections.toml
+2025-09-17 16:30:34,829 - INFO - Connecting to Snowflake account: SFSEEUROPE-EU_DEMO59
+2025-09-17 16:30:34,860 - INFO - Snowflake Connector for Python Version: 3.17.3, Python Version: 3.11.5, Platform: macOS-15.6.1-arm64-arm-64bit
+2025-09-17 16:30:34,860 - INFO - Connecting to GLOBAL Snowflake domain
+2025-09-17 16:30:40,950 - INFO - ✅ Successfully connected to Snowflake!
+2025-09-17 16:30:40,951 - INFO - 🏗️  Creating database structure...
+2025-09-17 16:30:40,951 - INFO - 🔄 Creating MARKETS_AI_DEMO database
+2025-09-17 16:30:41,028 - INFO - ✅ Creating MARKETS_AI_DEMO database - Success
+2025-09-17 16:30:41,028 - INFO - 🔄 Creating RAW_DATA schema
+2025-09-17 16:30:41,144 - INFO - ✅ Creating RAW_DATA schema - Success
+2025-09-17 16:30:41,144 - INFO - 🔄 Creating ENRICHED_DATA schema
+2025-09-17 16:30:41,303 - INFO - ✅ Creating ENRICHED_DATA schema - Success
+2025-09-17 16:30:41,304 - INFO - 🔄 Creating ANALYTICS schema
+2025-09-17 16:30:41,382 - INFO - ✅ Creating ANALYTICS schema - Success
+2025-09-17 16:30:41,382 - INFO - 🔄 Creating SEARCH_SERVICES schema
+2025-09-17 16:30:41,463 - INFO - ✅ Creating SEARCH_SERVICES schema - Success
+2025-09-17 16:30:41,719 - INFO - ✅ Database structure created successfully!
+2025-09-17 16:30:41,720 - INFO - 📊 Creating demo tables...
+2025-09-17 16:30:41,832 - INFO - 🔄 Creating companies table
+2025-09-17 16:30:42,297 - INFO - ✅ Creating companies table - Success
+2025-09-17 16:30:42,297 - INFO - 🔄 Creating stock_prices table
+2025-09-17 16:30:42,828 - INFO - ✅ Creating stock_prices table - Success
+2025-09-17 16:30:42,829 - INFO - 🔄 Creating earnings_data table
+2025-09-17 16:30:43,883 - INFO - ✅ Creating earnings_data table - Success
+2025-09-17 16:30:43,884 - INFO - 🔄 Creating research_reports table
+2025-09-17 16:30:44,227 - INFO - ✅ Creating research_reports table - Success
+2025-09-17 16:30:44,227 - INFO - 🔄 Creating market_events table
+2025-09-17 16:30:44,643 - INFO - ✅ Creating market_events table - Success
+2025-09-17 16:30:44,643 - INFO - ✅ All tables created successfully!
+2025-09-17 16:30:44,644 - INFO - 👥 Loading company data...
+2025-09-17 16:30:53,081 - INFO - ✅ Company data loaded successfully!
+2025-09-17 16:30:53,083 - INFO - 📈 Generating earnings data...
+2025-09-17 16:31:28,452 - INFO - ✅ Earnings data generated successfully!
+2025-09-17 16:31:28,453 - INFO - 📰 Generating market events...
+2025-09-17 16:31:28,954 - ERROR - ❌ SQL Error in : 001003 (42000): 01bf1d23-0105-3214-0000-4df10b825626: SQL compilation error:
+syntax error line 4 at position 42 unexpected ','.
+syntax error line 4 at position 51 unexpected ']'.
+syntax error line 4 at position 54 unexpected 'ARRAY'.
+syntax error line 4 at position 66 unexpected ','.
+syntax error line 4 at position 109 unexpected ']'.
+syntax error line 5 at position 16 unexpected ''Market showed high volatility in response to this event.''.
+2025-09-17 16:31:28,954 - ERROR - SQL: 
+            INSERT INTO market_events VALUES (
+                'FED_RATE_HIKE_2024_Q1', '2023-11-15',
+                'Federal Reserve Decision', 'Fed Raises Interest Rates by 0.75%', 'Federal Reserve implements aggressive rate hike to combat inflation, impacting growth stocks particularly in technology sector.',
+                'High', ARRAY['Technology','Growth'], ARRAY['AAPL','MSFT','GOOGL','NVDA','TSLA','META','SNOW'],
+                'Market showed high volatility in response to this event.',
+                CURRENT_TIMESTAMP()
+            )
+            
+2025-09-17 16:31:28,954 - ERROR - ❌ Deployment failed: 001003 (42000): 01bf1d23-0105-3214-0000-4df10b825626: SQL compilation error:
+syntax error line 4 at position 42 unexpected ','.
+syntax error line 4 at position 51 unexpected ']'.
+syntax error line 4 at position 54 unexpected 'ARRAY'.
+syntax error line 4 at position 66 unexpected ','.
+syntax error line 4 at position 109 unexpected ']'.
+syntax error line 5 at position 16 unexpected ''Market showed high volatility in response to this event.''.
+2025-09-17 16:31:29,044 - INFO - 🔌 Snowflake connection closed.

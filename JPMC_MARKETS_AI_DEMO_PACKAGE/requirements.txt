@@ -1,0 +1,31 @@
+# JPMC Markets AI Demo - Python Dependencies
+# For deployment script and Snowflake integration
+
+# Core Snowflake connectivity
+snowflake-connector-python>=3.0.0
+snowflake-snowpark-python>=1.0.0
+
+# Configuration management
+toml>=0.10.2
+
+# Data manipulation and analysis
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Date/time utilities
+python-dateutil>=2.8.0
+
+# Logging and utilities
+pyyaml>=6.0
+python-dotenv>=0.19.0
+
+# Optional: For enhanced demo capabilities
+matplotlib>=3.5.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# Development and testing (optional)
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0
+mypy>=0.950
