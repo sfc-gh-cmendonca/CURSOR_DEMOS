@@ -486,14 +486,15 @@ class MarketsAIDemoDeployment:
         ]
         
         for event in events:
-            sectors_array = "ARRAY[" + ",".join(f"'{s}'" for s in event["sectors"]) + "]"
-            tickers_array = "ARRAY[" + ",".join(f"'{t}'" for t in event["tickers"]) + "]"
+            # Create proper Snowflake ARRAY syntax
+            sectors_array = "[" + ",".join(f"'{s}'" for s in event["sectors"]) + "]"
+            tickers_array = "[" + ",".join(f"'{t}'" for t in event["tickers"]) + "]"
             
             insert_sql = f"""
             INSERT INTO market_events VALUES (
                 '{event["id"]}', '{event["date"].strftime('%Y-%m-%d')}',
                 '{event["type"]}', '{event["title"]}', '{event["description"]}',
-                '{event["impact"]}', {sectors_array}, {tickers_array},
+                '{event["impact"]}', ARRAY_CONSTRUCT{sectors_array}, ARRAY_CONSTRUCT{tickers_array},
                 'Market showed {event["impact"].lower()} volatility in response to this event.',
                 CURRENT_TIMESTAMP()
             )
@@ -552,7 +553,7 @@ class MarketsAIDemoDeployment:
         ]
         
         for report in reports:
-            tickers_array = "ARRAY[" + ",".join(f"'{t}'" for t in report["tickers"]) + "]"
+            tickers_array = "[" + ",".join(f"'{t}'" for t in report["tickers"]) + "]"
             
             # Generate realistic price target for primary ticker
             if report["tickers"][0] == "SNOW":
@@ -589,7 +590,7 @@ class MarketsAIDemoDeployment:
             INSERT INTO research_reports VALUES (
                 '{report["id"]}', '{report["title"]}', '{report["author"]}', '{report["firm"]}',
                 '{report["date"].strftime('%Y-%m-%d')}', '{report["type"]}', '{report["sector"]}',
-                {tickers_array}, '{report["theme"]}', '{report["thesis"]}', '{report["risks"]}',
+                ARRAY_CONSTRUCT{tickers_array}, '{report["theme"]}', '{report["thesis"]}', '{report["risks"]}',
                 {price_target}, '{rating}', 
                 'Analysis of {report["theme"]} trends across technology sector',
                 '{full_content.replace("'", "''")}', CURRENT_TIMESTAMP()
