@@ -28,15 +28,16 @@ role = "SYSADMIN"
 
 ### 3. Deploy the Demo
 ```bash
-python deploy_markets_ai_demo.py
+python deploy_simple_demo.py
 ```
 
-### 4. Configure Snowflake Intelligence Agents
+### 4. Configure Snowflake Intelligence Agents Manually
 1. Log into Snowflake Intelligence UI
-2. Import agent configurations from `snowflake_intelligence_agents/` directory:
-   - `earnings_analysis_agent.md`
-   - `thematic_research_agent.md`
-3. Test both agents with simple queries
+2. **Follow the detailed guide**: `MANUAL_AGENT_SETUP.md`
+3. **Create two agents manually**:
+   - `Tech Earnings Analysis Assistant` (uses `earnings_analysis_semantic` view)
+   - `Tech Thematic Research Assistant` (uses `thematic_research_semantic` view)
+4. **Test both agents** with the sample questions provided
 
 ### 5. Run the Demo
 Follow the detailed scripts in `DEMO_SCENARIO_SCRIPTS.md`
