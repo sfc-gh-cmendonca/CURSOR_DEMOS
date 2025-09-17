@@ -521,8 +521,8 @@ class MarketsAIDemoDeployment:
                 "sector": "Technology",
                 "tickers": ["NVDA", "MSFT", "SNOW", "GOOGL"],
                 "theme": "Artificial Intelligence",
-                "thesis": "Enterprise AI adoption is accelerating rapidly, creating unprecedented demand for specialized infrastructure. Companies with proprietary AI capabilities and robust cloud platforms are positioned to capture disproportionate value.",
-                "risks": "Regulatory scrutiny, competition from open-source alternatives, high capital requirements for AI infrastructure."
+                "thesis": "Enterprise AI adoption is accelerating rapidly creating demand for specialized infrastructure.",
+                "risks": "Regulatory scrutiny and competition from alternatives."
             },
             {
                 "id": "RPT_CLOUD_DATA_2024_Q3",
@@ -534,8 +534,8 @@ class MarketsAIDemoDeployment:
                 "sector": "Technology",
                 "tickers": ["SNOW", "MSFT", "ORCL", "GOOGL"],
                 "theme": "Data Analytics",
-                "thesis": "Organizations are moving beyond traditional data warehousing to comprehensive data cloud platforms. Modern architecture enables real-time analytics and AI/ML workloads at scale.",
-                "risks": "Intense competition, margin pressure from pricing wars, integration complexity."
+                "thesis": "Organizations are moving beyond traditional data warehousing to comprehensive data cloud platforms.",
+                "risks": "Intense competition and margin pressure from pricing wars."
             },
             {
                 "id": "RPT_SNOWFLAKE_DEEP_2024",
@@ -547,8 +547,8 @@ class MarketsAIDemoDeployment:
                 "sector": "Technology",
                 "tickers": ["SNOW"],
                 "theme": "Data Cloud Platform",
-                "thesis": "Snowflake's architecture uniquely positions it for the AI era. Native support for unstructured data, vector databases, and ML workloads creates competitive moats in the evolving data landscape.",
-                "risks": "Hyperscaler competition, customer concentration, execution on AI roadmap."
+                "thesis": "Snowflake architecture positions it well for the AI era with support for unstructured data and ML workloads.",
+                "risks": "Hyperscaler competition and customer concentration risks."
             }
         ]
         
@@ -587,14 +587,20 @@ class MarketsAIDemoDeployment:
             Price Target: ${price_target}
             """
             
+            # Escape single quotes properly for SQL
+            thesis_escaped = report["thesis"].replace("'", "''")
+            risks_escaped = report["risks"].replace("'", "''")
+            title_escaped = report["title"].replace("'", "''")
+            content_escaped = full_content.replace("'", "''")
+            
             insert_sql = f"""
             INSERT INTO research_reports VALUES (
-                '{report["id"]}', '{report["title"]}', '{report["author"]}', '{report["firm"]}',
+                '{report["id"]}', '{title_escaped}', '{report["author"]}', '{report["firm"]}',
                 '{report["date"].strftime('%Y-%m-%d')}', '{report["type"]}', '{report["sector"]}',
-                '{tickers_str}', '{report["theme"]}', '{report["thesis"]}', '{report["risks"]}',
+                '{tickers_str}', '{report["theme"]}', '{thesis_escaped}', '{risks_escaped}',
                 {price_target}, '{rating}', 
                 'Analysis of {report["theme"]} trends across technology sector',
-                '{full_content.replace("'", "''")}', CURRENT_TIMESTAMP()
+                '{content_escaped}', CURRENT_TIMESTAMP()
             )
             """
             self.execute_sql(insert_sql)
