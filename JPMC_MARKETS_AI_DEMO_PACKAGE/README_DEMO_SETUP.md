@@ -1,6 +1,14 @@
 # JPMC Markets AI Demo - Setup Guide
 *Demo Scenarios 1 & 2 for Equity Research Analysts*
 
+## 🎉 **Demo Successfully Deployed!** ✅
+
+This demo includes:
+- **2 Semantic Views** for Cortex Analyst (earnings analysis & thematic research) 
+- **2 Cortex Search Services** for document search (transcripts & reports)
+- **7 Tech Companies** with realistic sample data (AAPL, MSFT, GOOGL, NVDA, TSLA, META, SNOW)
+- **Dual-Tool Agents** combining structured data analysis + unstructured content search
+
 ## 🎯 Quick Start (5 minutes)
 
 ### 1. Install Dependencies
@@ -31,6 +39,11 @@ role = "SYSADMIN"
 python deploy_dual_tool_demo.py
 ```
 
+✅ **This creates**:
+- **2 Semantic Views** in `MARKETS_AI_DEMO.ANALYTICS` schema
+- **2 Cortex Search Services** for document search
+- **Sample data** for 7 tech companies (AAPL, MSFT, GOOGL, NVDA, TSLA, META, SNOW)
+
 ### 4. Configure Sophisticated Dual-Tool Agents
 1. Log into Snowflake Intelligence UI
 2. **Follow the comprehensive guide**: `DUAL_TOOL_AGENT_SETUP.md`
@@ -42,28 +55,40 @@ python deploy_dual_tool_demo.py
 ### 5. Run the Enhanced Demo
 Follow the advanced scripts in `DUAL_TOOL_DEMO_SCRIPTS.md`
 
+### 6. Cleanup (Optional)
+When you're done with the demo, you can clean up all objects:
+
+```bash
+# Complete cleanup - removes everything
+python cleanup_demo.py complete
+
+# Partial cleanup - keeps database structure
+python cleanup_demo.py partial
+
+# Data only cleanup - clears table data only
+python cleanup_demo.py data_only
+```
+
+⚠️ **WARNING**: Cleanup actions cannot be undone!
+
 ---
 
 ## 📊 What Gets Created
 
-### Database Structure
+### Database Structure ✅ **Successfully Deployed**
 ```
 MARKETS_AI_DEMO/
 ├── RAW_DATA/
-│   ├── companies (10 tech companies including SNOW)
-│   ├── earnings_data (8 quarters per company)
-│   ├── stock_prices (2 years daily data)
-│   ├── market_events (5 major tech sector events)
+│   ├── companies (7 tech companies including SNOW)
+│   ├── earnings_data (28 quarterly reports)
+│   ├── earnings_call_transcripts (3 earnings call transcripts)
 │   └── research_reports (3 thematic research reports)
-├── ENRICHED_DATA/
-│   └── (Reserved for future enhancements)
 ├── ANALYTICS/
-│   ├── earnings_analysis_semantic (Cortex Analyst view)
-│   └── thematic_research_semantic (Cortex Analyst view)
-├── SEARCH_SERVICES/
-│   └── research_reports_search (Cortex Search service)
-└── MARKETPLACE_DATA/
-    └── economic_indicators (Placeholder for marketplace data)
+│   ├── earnings_analysis_semantic ✅ (Snowflake Semantic View)
+│   └── thematic_research_semantic ✅ (Snowflake Semantic View)
+└── SEARCH_SERVICES/
+    ├── earnings_transcripts_search ✅ (Cortex Search Service)
+    └── research_reports_search ✅ (Cortex Search Service)
 ```
 
 ### Tech Companies Included
@@ -181,31 +206,54 @@ MARKETS_AI_DEMO/
 
 ### Common Issues
 
-**Agent not responding**:
-- Check Snowflake Intelligence connection
-- Verify agent configurations are properly imported
-- Test with simpler queries first
+**✅ Deployment Successful**: The semantic views and search services are working correctly!
 
-**Data appears outdated**:
-- Confirm deployment script used dynamic date generation
-- Check that current_date calculations are working
-- Verify quarters are calculated from current date
+**Agent configuration issues**:
+- Ensure you're using the correct database: `MARKETS_AI_DEMO`
+- Verify schema: `ANALYTICS` for semantic views
+- Check ID/Title columns are set correctly for Cortex Search tools
 
-**Missing data**:
-- Check deployment logs for any failed table creation
-- Validate record counts match expected minimums
-- Ensure all SQL statements executed successfully
+**Agent not responding to queries**:
+- Test semantic views: Use simple questions like "Show me Apple's latest earnings"
+- Test search services: Use queries like "What did management say about AI strategy?"
+- Verify both Cortex Analyst and Cortex Search tools are configured
 
-**Performance issues**:
-- Verify warehouse size is appropriate (M or L recommended)
-- Check for query result caching configuration
-- Monitor for concurrent usage affecting performance
+**Performance optimization**:
+- Use warehouse size M or L for better performance
+- Search services may take 5-10 minutes to fully index after deployment
+- Complex queries combining both tools may take longer initially
 
 ### Support Resources
-- Deployment logs: `markets_ai_demo_deployment.log`
-- Database validation queries in deployment script
-- Agent configuration templates in `snowflake_intelligence_agents/`
-- Technical architecture documentation
+- **Agent Setup Guide**: `DUAL_TOOL_AGENT_SETUP.md`
+- **Demo Scripts**: `DUAL_TOOL_DEMO_SCRIPTS.md`
+- **Cleanup Tool**: `cleanup_demo.py` (3 cleanup levels available)
+
+---
+
+## 🧹 Cleanup Options
+
+The `cleanup_demo.py` script provides three levels of cleanup:
+
+### Complete Cleanup (`python cleanup_demo.py complete`)
+- ✅ Removes ENTIRE `MARKETS_AI_DEMO` database
+- ✅ Removes all schemas, tables, views, and search services  
+- ✅ Perfect for completely resetting after demo
+- ⚠️ **WARNING**: This cannot be undone!
+
+### Partial Cleanup (`python cleanup_demo.py partial`) 
+- ✅ Removes all data and objects
+- ✅ Keeps database and schema structure
+- ✅ Good for keeping structure while clearing content
+
+### Data Only Cleanup (`python cleanup_demo.py data_only`)
+- ✅ Truncates all table data
+- ✅ Keeps all objects, views, and services intact
+- ✅ Perfect for reloading fresh demo data
+
+### Cleanup Troubleshooting
+- If cleanup fails, you can manually drop objects in Snowflake UI
+- Run cleanup with different levels if complete cleanup fails
+- Check object dependencies if individual drops fail
 
 ---
 

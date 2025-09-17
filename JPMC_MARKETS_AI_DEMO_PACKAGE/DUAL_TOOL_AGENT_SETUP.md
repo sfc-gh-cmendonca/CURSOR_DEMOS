@@ -41,6 +41,8 @@ Each agent provides comprehensive analysis by leveraging both quantitative data 
 - **Tool Type**: `Cortex Search`
 - **Tool Name**: `earnings_transcripts_search`
 - **Search Service**: `MARKETS_AI_DEMO.SEARCH_SERVICES.earnings_transcripts_search`
+- **ID Column**: `transcript_id`
+- **Title Column**: `title`
 - **Description**: `Search earnings call transcripts for management commentary, guidance, and strategic insights`
 
 ### Planning Instructions
@@ -123,6 +125,8 @@ CONTENT PRIORITIES:
 - **Tool Type**: `Cortex Search`
 - **Tool Name**: `research_reports_search`
 - **Search Service**: `MARKETS_AI_DEMO.SEARCH_SERVICES.research_reports_search`
+- **ID Column**: `report_id`
+- **Title Column**: `title`
 - **Description**: `Deep search across full research report content for detailed thematic analysis and supporting evidence`
 
 ### Planning Instructions

@@ -542,47 +542,68 @@ class DualToolMarketsDemo:
         
         self.execute_sql("USE SCHEMA ANALYTICS")
         
-        # Earnings analysis view
-        earnings_view_sql = """
-        CREATE OR REPLACE VIEW earnings_analysis_semantic AS
-        SELECT 
-            e.ticker,
-            c.company_name,
-            e.quarter,
-            e.earnings_date,
-            e.revenue_millions as revenue,
-            e.net_income_millions as net_income,
-            e.earnings_per_share as eps,
-            e.revenue_surprise_percent,
-            e.eps_surprise_percent,
-            e.analyst_est_revenue,
-            e.analyst_est_eps,
-            c.market_cap_billions
-        FROM RAW_DATA.earnings_data e
-        JOIN RAW_DATA.companies c ON e.ticker = c.ticker
-        WHERE c.sector = 'Technology'
+        # Earnings analysis semantic view
+        earnings_semantic_sql = """
+        CREATE OR REPLACE SEMANTIC VIEW earnings_analysis_semantic
+        TABLES (
+            earnings_data AS RAW_DATA.earnings_data
+                PRIMARY KEY (ticker, quarter)
+                COMMENT='Quarterly earnings data for technology companies',
+            companies AS RAW_DATA.companies
+                PRIMARY KEY (ticker)
+                COMMENT='Company master data'
+        )
+        RELATIONSHIPS (
+            earnings_to_companies AS earnings_data(ticker) REFERENCES companies(ticker)
+        )
+        DIMENSIONS (
+            companies.ticker AS ticker WITH SYNONYMS=('symbol','stock_ticker') COMMENT='Company ticker symbol',
+            companies.company_name AS company_name WITH SYNONYMS=('company','firm_name') COMMENT='Company name',
+            earnings_data.quarter AS quarter WITH SYNONYMS=('period','fiscal_quarter') COMMENT='Financial quarter',
+            earnings_data.earnings_date AS earnings_date WITH SYNONYMS=('report_date') COMMENT='Earnings report date',
+            companies.sector AS sector WITH SYNONYMS=('industry_sector') COMMENT='Industry sector'
+        )
+        METRICS (
+            earnings_data.total_revenue AS SUM(revenue_millions) WITH SYNONYMS=('sum_revenue','total_sales') COMMENT='Total quarterly revenue',
+            earnings_data.total_net_income AS SUM(net_income_millions) WITH SYNONYMS=('sum_net_income','total_profit') COMMENT='Total quarterly net income',
+            earnings_data.average_eps AS AVG(earnings_per_share) WITH SYNONYMS=('mean_eps','avg_earnings_per_share') COMMENT='Average earnings per share',
+            earnings_data.average_revenue_surprise AS AVG(revenue_surprise_percent) WITH SYNONYMS=('mean_revenue_surprise','avg_revenue_beat') COMMENT='Average revenue surprise percentage',
+            earnings_data.average_eps_surprise AS AVG(eps_surprise_percent) WITH SYNONYMS=('mean_eps_surprise','avg_eps_beat') COMMENT='Average EPS surprise percentage',
+            companies.average_market_cap AS AVG(market_cap_billions) WITH SYNONYMS=('mean_market_cap','avg_valuation') COMMENT='Average market capitalization',
+            earnings_data.earnings_count AS COUNT(*) WITH SYNONYMS=('report_count','num_reports') COMMENT='Number of earnings reports'
+        )
+        COMMENT='Semantic view for technology company earnings analysis'
         """
-        self.execute_sql(earnings_view_sql, "Creating earnings analysis view")
+        self.execute_sql(earnings_semantic_sql, "Creating earnings analysis semantic view")
         
-        # Thematic research view
-        thematic_view_sql = """
-        CREATE OR REPLACE VIEW thematic_research_semantic AS
-        SELECT 
-            r.report_id,
-            r.title,
-            r.author,
-            r.firm,
-            r.publish_date,
-            r.theme,
-            r.investment_thesis,
-            r.rating,
-            r.price_target,
-            r.tickers_covered as companies_covered,
-            r.sector
-        FROM RAW_DATA.research_reports r
-        WHERE r.sector = 'Technology'
+        # Thematic research semantic view
+        thematic_semantic_sql = """
+        CREATE OR REPLACE SEMANTIC VIEW thematic_research_semantic
+        TABLES (
+            research_reports AS RAW_DATA.research_reports
+                PRIMARY KEY (report_id)
+                COMMENT='Investment research reports covering technology themes'
+        )
+        DIMENSIONS (
+            research_reports.report_id AS report_id WITH SYNONYMS=('id','research_id') COMMENT='Unique research report identifier',
+            research_reports.title AS title WITH SYNONYMS=('report_title','research_title') COMMENT='Research report title',
+            research_reports.author AS author WITH SYNONYMS=('analyst','researcher') COMMENT='Research analyst author name',
+            research_reports.firm AS firm WITH SYNONYMS=('company','research_house') COMMENT='Investment firm or research house',
+            research_reports.publish_date AS publish_date WITH SYNONYMS=('date','publication_date') COMMENT='Report publication date',
+            research_reports.theme AS theme WITH SYNONYMS=('topic','investment_theme') COMMENT='Investment theme or research topic',
+            research_reports.sector AS sector WITH SYNONYMS=('industry_sector') COMMENT='Industry sector focus',
+            research_reports.rating AS rating WITH SYNONYMS=('recommendation','investment_rating') COMMENT='Investment rating',
+            research_reports.tickers_covered AS tickers_covered WITH SYNONYMS=('stocks','companies_covered') COMMENT='Stock tickers covered in report'
+        )
+        METRICS (
+            research_reports.average_price_target AS AVG(price_target) WITH SYNONYMS=('mean_price_target','avg_target') COMMENT='Average price target',
+            research_reports.report_count AS COUNT(DISTINCT report_id) WITH SYNONYMS=('num_reports','research_count') COMMENT='Number of research reports',
+            research_reports.unique_themes AS COUNT(DISTINCT theme) WITH SYNONYMS=('theme_count','num_themes') COMMENT='Number of unique investment themes',
+            research_reports.unique_analysts AS COUNT(DISTINCT author) WITH SYNONYMS=('analyst_count','num_analysts') COMMENT='Number of unique research analysts'
+        )
+        COMMENT='Semantic view for thematic investment research analysis'
         """
-        self.execute_sql(thematic_view_sql, "Creating thematic research view")
+        self.execute_sql(thematic_semantic_sql, "Creating thematic research semantic view")
         
         logger.info("✅ Semantic views created!")
     
@@ -661,6 +682,14 @@ class DualToolMarketsDemo:
                 logger.info(f"✅ {description}: {count} records")
             except Exception as e:
                 logger.error(f"❌ {description}: Validation failed - {e}")
+        
+        # Check semantic views
+        try:
+            self.execute_sql("USE SCHEMA ANALYTICS")
+            semantic_views = self.execute_sql("SHOW SEMANTIC VIEWS")
+            logger.info(f"🧠 Semantic views created: {len(semantic_views)}")
+        except:
+            logger.warning("⚠️ Could not validate semantic views")
         
         # Check search services
         try:
