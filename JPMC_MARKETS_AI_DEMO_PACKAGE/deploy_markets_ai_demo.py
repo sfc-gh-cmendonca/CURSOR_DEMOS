@@ -651,7 +651,7 @@ class MarketsAIDemoDeployment:
             r.investment_thesis,
             r.rating,
             r.price_target,
-            ARRAY_TO_STRING(r.tickers_covered, ', ') as companies_covered,
+            r.tickers_covered as companies_covered,
             r.sector
         FROM RAW_DATA.research_reports r
         WHERE r.sector = 'Technology'
