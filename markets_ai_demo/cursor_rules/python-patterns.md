@@ -1,3 +1,7 @@
+---
+globs: *.py
+---
+
 # Python Development Patterns
 
 ## Snowpark Session Management (CRITICAL)
@@ -121,6 +125,7 @@ except Exception as e:
     print("❓ Please help fix the SQL syntax error above")
     raise
 ```
+
 
 ## Function Compatibility Patterns
 ```python
