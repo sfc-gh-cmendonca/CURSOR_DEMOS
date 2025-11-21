@@ -1,0 +1,9 @@
+# No Python dependencies required!
+# This demo is now SQL-only.
+# 
+# For historical reference, the Python code has been archived to:
+# - src_archived_python/
+# - setup_archived.py
+#
+# To run this demo, simply execute the SQL scripts:
+# snowsql -c your_connection -f sql/00_setup_infrastructure.sql
