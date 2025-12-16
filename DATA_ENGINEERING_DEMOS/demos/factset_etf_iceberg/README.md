@@ -2,6 +2,10 @@
 
 Advanced Snowflake CDC (Change Data Capture) demo showcasing **2 stream-based pipeline patterns** for processing ETF constituent data using Streams, Tasks, and Iceberg format with Parquet exports.
 
+## ⚠️ Important Setup Note
+
+**If you get a "Change tracking cannot be enabled" error**, use `WORKAROUND_LOCAL_COPY.sql` instead of the standard setup files. This creates a local copy of the data with change tracking enabled. See [Setup](#-quick-start) section below for details.
+
 ## 🎯 Demo Overview
 
 This demo implements a complete ETL/ELT solution for **FACTSET ETF CONSTITUENTS data only**, demonstrating:
