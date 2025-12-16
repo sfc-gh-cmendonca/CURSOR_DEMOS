@@ -96,15 +96,30 @@ This demo implements a complete ETL/ELT solution for **FACTSET ETF CONSTITUENTS 
 ## 📋 Prerequisites
 
 ### Required
-1. **Snowflake Account** with ACCOUNTADMIN privileges (or appropriate role)
+1. **Snowflake Account** with ACCOUNTADMIN or SYSADMIN privileges
 2. **FACTSET ETF Data Share**: `ETF_DATA.PUBLIC.CONSTITUENTS`
    - This share must be accessible in your account
-   - No mock data - demo requires real share
+   - ⚠️ **IMPORTANT:** If the share does NOT have `CHANGE_TRACKING` enabled, use `WORKAROUND_LOCAL_COPY.sql` instead of the standard setup
 3. **Snowflake CLI** (SnowSQL) or Web UI access
 
 ### Optional (for production Iceberg)
 - **External Storage**: AWS S3, Azure Blob, or GCS
 - **External Volume**: Configured for Iceberg tables
+
+### ⚠️ Change Tracking Requirement
+
+**Streams require the source table to have `CHANGE_TRACKING` enabled.**
+
+**To check if the FACTSET share has change tracking:**
+```sql
+SHOW TABLES LIKE 'CONSTITUENTS' IN ETF_DATA.PUBLIC;
+-- Look for CHANGE_TRACKING column = ON
+```
+
+**If change tracking is NOT enabled:**
+- ❌ Cannot create streams directly on the shared table
+- ✅ **Use:** `WORKAROUND_LOCAL_COPY.sql` (creates local copy with change tracking)
+- 📧 **Contact FACTSET** to request they enable change tracking on their share
 
 ## 🚀 Quick Start
 

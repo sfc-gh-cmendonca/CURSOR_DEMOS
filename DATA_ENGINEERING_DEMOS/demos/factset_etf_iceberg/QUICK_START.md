@@ -2,34 +2,56 @@
 
 Get up and running with the demo in 10 minutes.
 
-## ⚡ 5-Minute Setup
+## ⚠️ FIRST: Check Change Tracking
 
-### Step 1: Configure Connection (1 minute)
-
-Edit `config_factset.sql` and update these variables:
+**Before starting, check if the FACTSET share has change tracking enabled:**
 
 ```sql
-SET ROLE_NAME = 'YOUR_ROLE';        -- Your Snowflake role
-SET WAREHOUSE_NAME = 'YOUR_WH';      -- Your warehouse name
-SET WORK_DB = 'DATA_ENG_DEMO';      -- Database to create (or existing)
+SHOW TABLES LIKE 'CONSTITUENTS' IN ETF_DATA.PUBLIC;
 ```
 
-### Step 2: Run Initialization (2 minutes)
+Look for the `change_tracking` column. If it shows **"OFF"** or is not enabled:
+- ❌ **DO NOT use the standard setup files**
+- ✅ **USE:** `WORKAROUND_LOCAL_COPY.sql` instead (see below)
 
-```sql
--- From Snowflake UI or SnowSQL:
-@demos/factset_etf_iceberg/config_factset.sql
-@demos/factset_etf_iceberg/sql/00_initialization.sql
-```
+---
 
-This creates:
-- Database and schemas
-- Verifies access to `ETF_DATA.PUBLIC.CONSTITUENTS` share (REQUIRED)
-- Stream for CDC on the shared table
-- Iceberg table
-- Stage for Parquet files
+## ⚡ Setup Option 1: Share WITH Change Tracking
 
-**Note:** This demo uses the FACTSET share `ETF_DATA.PUBLIC.CONSTITUENTS` which is hardcoded in the configuration. Make sure you have access to this share!
+**Use this if** change tracking is enabled on the FACTSET share.
+
+### Via Snowflake Web UI (Easiest)
+
+1. Log into Snowflake Web UI
+2. Open a new worksheet
+3. Copy/paste entire contents of `CONSOLIDATED_SETUP.sql`
+4. Click "Run All"
+
+**Done!** Both pipelines are now set up.
+
+---
+
+## ⚡ Setup Option 2: Share WITHOUT Change Tracking (Workaround)
+
+**Use this if** change tracking is NOT enabled on the FACTSET share.
+
+### Via Snowflake Web UI (Recommended)
+
+1. Log into Snowflake Web UI
+2. Open a new worksheet  
+3. Copy/paste entire contents of `WORKAROUND_LOCAL_COPY.sql`
+4. Click "Run All"
+
+**What this does:**
+- Creates a local writable copy of FACTSET data
+- Enables change tracking on local copy
+- Creates streams on local table (works!)
+- Sets up both pipelines
+- Optionally syncs local copy from share hourly
+
+**File locations:**
+- Local: `WORKAROUND_LOCAL_COPY.sql`
+- GitHub: https://github.com/sfc-gh-cmendonca/CURSOR_DEMOS/blob/main/DATA_ENGINEERING_DEMOS/demos/factset_etf_iceberg/WORKAROUND_LOCAL_COPY.sql
 
 ### Step 3: Choose & Run a Pipeline (2 minutes)
 

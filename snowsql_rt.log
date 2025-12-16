@@ -1,0 +1,45 @@
+2025-12-16 08:32:29,022 (84938/MainThread) snowflake.cli.common.util_cli DEBUG       util_cli:732  - Initialized logging. Log file '../snowsql_rt.log', Namespaces: ['snowflake.cli', 'snowflake.connector', 'botocore', 'azure', '__main__', 'eventloop', 'sqlexecute']
+2025-12-16 08:32:29,022 (84938/MainThread) snowflake.cli.common.util_cli INFO       util_cli:767  - REQUESTS_CA_BUNDLE is already set to /var/folders/ss/plv8yl0s6g364rxzjf6m9y1m0000gn/T/_MEIjJdFN6/certifi/cacert.pem
+2025-12-16 08:32:29,023 (84938/MainThread) __main__ DEBUG      eventloop:256  - is_terminal: False, is_interactive: False
+2025-12-16 08:32:42,869 (85046/MainThread) snowflake.cli.common.util_cli DEBUG       util_cli:732  - Initialized logging. Log file '../snowsql_rt.log', Namespaces: ['snowflake.cli', 'snowflake.connector', 'botocore', 'azure', '__main__', 'eventloop', 'sqlexecute']
+2025-12-16 08:32:42,870 (85046/MainThread) snowflake.cli.common.util_cli INFO       util_cli:767  - REQUESTS_CA_BUNDLE is already set to /var/folders/ss/plv8yl0s6g364rxzjf6m9y1m0000gn/T/_MEIGDICvb/certifi/cacert.pem
+2025-12-16 08:32:42,871 (85046/MainThread) __main__ DEBUG      eventloop:256  - is_terminal: False, is_interactive: False
+2025-12-16 08:32:42,871 (85046/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /Users/cmendonca/.snowsql/1.2.32/snowsql.cnf
+2025-12-16 08:32:42,872 (85046/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /etc/snowsql.cnf
+2025-12-16 08:32:42,872 (85046/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /etc/snowflake/snowsql.cnf
+2025-12-16 08:32:42,872 (85046/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /usr/local/etc/snowsql.cnf
+2025-12-16 08:32:42,872 (85046/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /Users/cmendonca/.snowsql.cnf
+2025-12-16 08:32:42,873 (85046/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /Users/cmendonca/.snowsql/config
+2025-12-16 08:32:42,873 (85046/MainThread) __main__ ERROR      eventloop:1300 - No connection could be found for EU_DEMO59
+Traceback (most recent call last):
+  File "eventloop.py", line 1200, in cli
+  File "eventloop.py", line 390, in connect
+Exception: No connection could be found for EU_DEMO59
+2025-12-16 08:32:42,873 (85046/MainThread) __main__ INFO      eventloop:614  - rollback
+2025-12-16 08:32:42,873 (85046/MainThread) snowflake.cli.sqlexecute INFO     sqlexecute:395  - rollback
+2025-12-16 08:32:42,874 (85046/MainThread) __main__ DEBUG      eventloop:628  - closing sessions
+2025-12-16 08:32:42,874 (85046/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:376  - closing connections
+2025-12-16 08:32:42,874 (85046/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:343  - joining async exec
+2025-12-16 08:32:42,874 (85046/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:351  - waiting for async exec to finish...
+2025-12-16 08:32:42,874 (85046/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:368  - all async queries finished.
+2025-12-16 08:33:13,076 (85154/MainThread) snowflake.cli.common.util_cli DEBUG       util_cli:732  - Initialized logging. Log file '../snowsql_rt.log', Namespaces: ['snowflake.cli', 'snowflake.connector', 'botocore', 'azure', '__main__', 'eventloop', 'sqlexecute']
+2025-12-16 08:33:13,076 (85154/MainThread) snowflake.cli.common.util_cli INFO       util_cli:767  - REQUESTS_CA_BUNDLE is already set to /var/folders/ss/plv8yl0s6g364rxzjf6m9y1m0000gn/T/_MEIxvQjoo/certifi/cacert.pem
+2025-12-16 08:33:13,077 (85154/MainThread) __main__ DEBUG      eventloop:256  - is_terminal: False, is_interactive: False
+2025-12-16 08:33:13,078 (85154/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /Users/cmendonca/.snowsql/1.2.32/snowsql.cnf
+2025-12-16 08:33:13,078 (85154/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /etc/snowsql.cnf
+2025-12-16 08:33:13,079 (85154/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /etc/snowflake/snowsql.cnf
+2025-12-16 08:33:13,079 (85154/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /usr/local/etc/snowsql.cnf
+2025-12-16 08:33:13,079 (85154/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /Users/cmendonca/.snowsql.cnf
+2025-12-16 08:33:13,079 (85154/MainThread) snowflake.cli.common.config DEBUG         config:87   - Reading cnf: /Users/cmendonca/.snowsql/config
+2025-12-16 08:33:13,080 (85154/MainThread) __main__ ERROR      eventloop:1300 - No connection could be found for eu_demo59
+Traceback (most recent call last):
+  File "eventloop.py", line 1200, in cli
+  File "eventloop.py", line 390, in connect
+Exception: No connection could be found for eu_demo59
+2025-12-16 08:33:13,080 (85154/MainThread) __main__ INFO      eventloop:614  - rollback
+2025-12-16 08:33:13,080 (85154/MainThread) snowflake.cli.sqlexecute INFO     sqlexecute:395  - rollback
+2025-12-16 08:33:13,081 (85154/MainThread) __main__ DEBUG      eventloop:628  - closing sessions
+2025-12-16 08:33:13,081 (85154/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:376  - closing connections
+2025-12-16 08:33:13,081 (85154/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:343  - joining async exec
+2025-12-16 08:33:13,081 (85154/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:351  - waiting for async exec to finish...
+2025-12-16 08:33:13,081 (85154/MainThread) snowflake.cli.sqlexecute DEBUG     sqlexecute:368  - all async queries finished.

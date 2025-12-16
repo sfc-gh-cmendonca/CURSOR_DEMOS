@@ -44,33 +44,40 @@ ICEBERG TABLE           PARQUET FILES
 ## 📋 Quick Start
 
 ### Prerequisites
-- Snowflake account with ACCOUNTADMIN privileges
+- Snowflake account with ACCOUNTADMIN or SYSADMIN privileges
 - Access to **ETF_DATA.PUBLIC.CONSTITUENTS** share (FACTSET)
-- SnowSQL or Snowflake Web UI
+- Snowflake Web UI access (recommended) or SnowSQL
+
+### ⚠️ Important: Change Tracking Check
+
+**Before setup, verify if the FACTSET share has change tracking:**
+```sql
+SHOW TABLES LIKE 'CONSTITUENTS' IN ETF_DATA.PUBLIC;
+```
 
 ### Setup (5 minutes)
 
-**Step 1: Infrastructure Setup**
-```bash
-cd DATA_ENGINEERING_DEMOS
-snowsql -c your_connection -f sql/00_setup_infrastructure.sql
-```
-
-**Step 2: FACTSET Demo Setup**
+**If change tracking is enabled on the share:**
 ```bash
 cd demos/factset_etf_iceberg
-snowsql -c your_connection -f config_factset.sql
-snowsql -c your_connection -f sql/00_initialization.sql
+# Copy/paste CONSOLIDATED_SETUP.sql into Snowflake Web UI and run
 ```
 
-**Step 3: Deploy Pipelines**
+**If change tracking is NOT enabled (most common):**
 ```bash
-# Deploy Pipeline 1 (Iceberg table)
-snowsql -c your_connection -f sql/01_pipeline_stream_task_iceberg.sql
-
-# Deploy Pipeline 2 (Parquet CDC)
-snowsql -c your_connection -f sql/02_pipeline_stream_task_iceberg_parquet.sql
+cd demos/factset_etf_iceberg
+# Copy/paste WORKAROUND_LOCAL_COPY.sql into Snowflake Web UI and run
 ```
+
+**The workaround:**
+- Creates a local writable copy of FACTSET data
+- Enables change tracking on the local copy
+- Streams work on local table
+- Optionally syncs from share hourly
+
+**Files:**
+- `CONSOLIDATED_SETUP.sql` - Standard setup (requires change tracking on share)
+- `WORKAROUND_LOCAL_COPY.sql` - Workaround for shares without change tracking ⭐ **Use this if you get Stream errors**
 
 ## 🔍 What Gets Created
 
