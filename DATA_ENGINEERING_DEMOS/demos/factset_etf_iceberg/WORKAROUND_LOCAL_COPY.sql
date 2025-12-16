@@ -8,7 +8,20 @@
 -- =============================================================================
 
 USE ROLE SYSADMIN;
+
+-- =============================================================================
+-- CREATE WAREHOUSE FIRST
+-- =============================================================================
+
+CREATE WAREHOUSE IF NOT EXISTS DATA_ENG_XFORM_WH
+    WAREHOUSE_SIZE = 'LARGE'
+    AUTO_SUSPEND = 300
+    AUTO_RESUME = TRUE
+    INITIALLY_SUSPENDED = FALSE;
+
 USE WAREHOUSE DATA_ENG_XFORM_WH;
+
+SELECT 'Warehouse created and active' AS STATUS;
 
 -- Create database and schemas
 CREATE DATABASE IF NOT EXISTS DATA_ENG_DEMO;
@@ -32,8 +45,20 @@ CREATE FILE FORMAT IF NOT EXISTS PARQUET_FORMAT
 -- =============================================================================
 
 -- This is a LOCAL table (not shared) so we CAN create a stream on it
+-- Using explicit column list for production readiness
 CREATE OR REPLACE TABLE constituents_local AS
-SELECT *
+SELECT
+    FUND_ID,
+    TICKER,
+    CONSTITUENT_NAME,
+    WEIGHT,
+    SHARES,
+    MARKET_VALUE,
+    SECTOR,
+    INDUSTRY,
+    COUNTRY,
+    AS_OF_DATE,
+    LOAD_TIMESTAMP
 FROM ETF_DATA.PUBLIC.CONSTITUENTS;
 
 -- Enable change tracking on local table
