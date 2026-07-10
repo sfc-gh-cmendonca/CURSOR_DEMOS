@@ -1,0 +1,15 @@
+# Secrets and keys
+keys/
+*.pem
+.streamlit/secrets.toml
+
+# Java binaries and JARs
+lib/
+java-harness/out/
+
+# Logs
+*.log
+snowflake_jdbc*.log*
+
+# Generated reports
+exec-summary/
