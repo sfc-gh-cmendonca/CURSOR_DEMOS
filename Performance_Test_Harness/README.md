@@ -8,6 +8,36 @@ JDBC load test harness for benchmarking Snowflake standard tables, Interactive T
 - **Java JDBC CLI** (`java-harness/src/RdpLoadTest.java`) — Load test engine (called as subprocess)
 - **EC2 deployment** (`deploy_to_ec2.sh`) — Automated AWS setup script
 
+### Local frontend + API (alternative to Streamlit)
+
+For driving tests from a laptop while the engine stays on EC2 (close to
+Snowflake), there is a client/server split that runs alongside `app.py`:
+
+- **`backend/`** — FastAPI service that wraps the Java engine and Snowflake
+  metrics as a REST API. Runs on the EC2 host (port 8000). See `backend/README.md`.
+- **`frontend/`** — React + Vite + TypeScript SPA that runs locally and calls the
+  EC2 API (URL is configurable). Charts via Recharts. See `frontend/README.md`.
+
+```
+[ laptop: React frontend ]  --HTTP-->  [ EC2: FastAPI backend ]  --subprocess-->  [ Java JDBC engine ]  --JDBC-->  [ Snowflake ]
+```
+
+Quick start:
+
+```bash
+# On EC2 (next to the Java engine, jars, and keys)
+cd backend && python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt && ./run.sh   # serves :8000
+
+# On your laptop
+cd frontend && npm install
+echo "VITE_API_BASE_URL=http://<EC2_PUBLIC_IP>:8000" > .env
+npm run dev                                    # http://localhost:5173
+```
+
+Remember to open port 8000 to your laptop's IP on the EC2 security group (the
+same pattern `deploy_to_ec2.sh` uses for 8501).
+
 ## Requirements
 
 - Python 3.11+ with `streamlit`, `snowflake-connector-python`, `pandas`
