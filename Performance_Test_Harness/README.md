@@ -1,11 +1,12 @@
 # RDP Interactive Tables Performance Test Harness
 
-JDBC load test harness for benchmarking Snowflake standard tables, Interactive Tables, and multi-cluster warehouses against a 36B-row time-series observation workload.
+Load test harness for benchmarking Snowflake standard tables, Interactive Tables, and multi-cluster warehouses against a 36B-row time-series observation workload. Supports two connectors, JDBC (Java) and ADBC (Arrow), so you can compare them side by side.
 
 ## Architecture
 
 - **Streamlit UI** (`app.py`) — Configuration panel + results dashboard
 - **Java JDBC CLI** (`java-harness/src/RdpLoadTest.java`) — Load test engine (called as subprocess)
+- **ADBC harness** (`adbc_harness.py`) — Native Python engine using the ADBC Snowflake driver; returns Arrow RecordBatches with no JVM or JDBC chunk downloads. Produces the same results JSON as the Java CLI, so the dashboard renders both identically.
 - **EC2 deployment** (`deploy_to_ec2.sh`) — Automated AWS setup script
 
 ### Local frontend + API (alternative to Streamlit)
@@ -40,7 +41,8 @@ same pattern `deploy_to_ec2.sh` uses for 8501).
 
 ## Requirements
 
-- Python 3.11+ with `streamlit`, `snowflake-connector-python`, `pandas`
+- Python 3.11+ with `streamlit`, `snowflake-connector-python`, `pandas`, `cryptography`
+- For the ADBC connector: `adbc-driver-snowflake`, `pyarrow`
 - Java 17+ (Amazon Corretto recommended)
 - Snowflake JDBC driver v4.2.0 (`lib/snowflake-jdbc.jar` — download separately)
 - SLF4J jars (`lib/slf4j-api.jar`, `lib/slf4j-simple.jar`)
@@ -70,7 +72,12 @@ same pattern `deploy_to_ec2.sh` uses for 8501).
    javac -cp '../lib/*' -d out src/RdpLoadTest.java
    ```
 
-4. Run locally:
+4. (Optional) Install the ADBC driver:
+   ```bash
+   pip install adbc-driver-snowflake pyarrow
+   ```
+
+5. Run locally:
    ```bash
    JAVA_HOME=/path/to/java17 streamlit run app.py --server.port 8501
    ```
@@ -81,10 +88,16 @@ Run `deploy_to_ec2.sh` to provision an m5.4xlarge in eu-central-1 (same region a
 
 ## Configuration Options
 
+- **Connector:** JDBC (Java) / ADBC (Arrow). Both use RSA key-pair auth from `keys/`.
+
 - **Target Table:** Standard (1B/5B/36B), Interactive (36B), various clustering strategies
 - **Query Mix:** Multi-ticker, single-ticker, date range, TS_CD-based, configurable percentages
-- **Connections:** 1-300 concurrent JDBC connections
+- **Connections:** 1-300 concurrent connections
 - **Duration:** 30s-900s
-- **Execution Mode:** Sync / Async (8 in-flight per connection)
+- **Execution Mode:** Sync / Async (8 in-flight per connection). Async is JDBC only; ADBC uses threaded concurrency.
 - **Ticker Distribution:** Uniform / Hot Ticker Bias (80%/50% from top 1000)
 - **Result Limit:** No limit / 500 / 1000 / 5000 / 10000 rows
+
+## Security
+
+Never commit credentials. `keys/`, `*.pem` and `.streamlit/secrets.toml` are git-ignored. Authentication is key-pair only, with no passwords in code.

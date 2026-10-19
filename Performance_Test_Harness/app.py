@@ -269,22 +269,24 @@ SLF4J_API_JAR = str(Path(__file__).parent / "lib" / "slf4j-api.jar")
 SLF4J_SIMPLE_JAR = str(Path(__file__).parent / "lib" / "slf4j-simple.jar")
 
 
+QUERY_MIX_MAP = {
+    "Mixed (60% multi-ticker, 40% single-ticker)": "mixed",
+    "Multi-ticker lookup only": "multi",
+    "Single-ticker deduplicated only": "single",
+    "Multi-ticker with date range": "multi_date",
+    "Single-ticker mix (80% single, 20% single+date range)": "single_date_mix",
+    "Single-ticker mix (50% single, 50% single+date range)": "single_date_50",
+    "Single-ticker with date range only (100%)": "single_date_100",
+    "TS_CD single lookup": "tscd_single",
+    "TS_CD with date range": "tscd_date",
+    "TS_CD multi-ticker lookup": "tscd_multi",
+    "TS_CD mixed (50% single, 30% date, 20% multi)": "tscd_mixed",
+    "Full mix (40% multi, 30% multi+date, 30% single)": "full_mix",
+}
+
+
 def run_load_test(duration_seconds, num_connections, query_mix, exec_mode="sync", ticker_bias="uniform", result_limit="0"):
-    mix_map = {
-        "Mixed (60% multi-ticker, 40% single-ticker)": "mixed",
-        "Multi-ticker lookup only": "multi",
-        "Single-ticker deduplicated only": "single",
-        "Multi-ticker with date range": "multi_date",
-        "Single-ticker mix (80% single, 20% single+date range)": "single_date_mix",
-        "Single-ticker mix (50% single, 50% single+date range)": "single_date_50",
-        "Single-ticker with date range only (100%)": "single_date_100",
-        "TS_CD single lookup": "tscd_single",
-        "TS_CD with date range": "tscd_date",
-        "TS_CD multi-ticker lookup": "tscd_multi",
-        "TS_CD mixed (50% single, 30% date, 20% multi)": "tscd_mixed",
-        "Full mix (40% multi, 30% multi+date, 30% single)": "full_mix",
-    }
-    mix_arg = mix_map.get(query_mix, "mixed")
+    mix_arg = QUERY_MIX_MAP.get(query_mix, "mixed")
 
     java_home = os.environ.get("JAVA_HOME", "/usr/lib/jvm/java-17-amazon-corretto.x86_64")
     java_bin = os.path.join(java_home, "bin", "java")
@@ -331,7 +333,7 @@ def run_load_test(duration_seconds, num_connections, query_mix, exec_mode="sync"
     return results
 
 
-st.title("RDP Standard Table - JDBC Performance Test Harness")
+st.title("RDP Performance Test Harness")
 st.markdown(
     f"Simulate **diverse user queries** via **Snowflake JDBC connector** against "
     f"**Standard Table** (`{TABLE}`) served by **Multi-Cluster Warehouse** (`{WAREHOUSE}` — Small, 5-15 clusters)."
@@ -413,9 +415,17 @@ with col_config:
         ["Single-ticker deduplicated only", "Single-ticker with date range only (100%)", "Single-ticker mix (80% single, 20% single+date range)", "Single-ticker mix (50% single, 50% single+date range)", "Multi-ticker lookup only", "Multi-ticker with date range", "Mixed (60% multi-ticker, 40% single-ticker)", "Full mix (40% multi, 30% multi+date, 30% single)", "TS_CD single lookup", "TS_CD with date range", "TS_CD multi-ticker lookup", "TS_CD mixed (50% single, 30% date, 20% multi)"]
     )
 
+    connector_type = st.selectbox(
+        "Connector",
+        ["JDBC (Java)", "ADBC (Arrow)"],
+        help="JDBC uses the Snowflake JDBC driver (Java subprocess). ADBC uses Apache Arrow Database Connectivity (native Python, zero-copy Arrow results)."
+    )
+
     exec_mode = st.selectbox(
         "Execution Mode",
-        ["Sync (Default)", "Async (8 in-flight per connection)"]
+        ["Sync (Default)", "Async (8 in-flight per connection)"],
+        disabled=(connector_type == "ADBC (Arrow)"),
+        help="Async mode only available for JDBC. ADBC uses threaded concurrency."
     )
 
     ticker_bias = st.selectbox(
@@ -424,10 +434,11 @@ with col_config:
         help="Hot bias simulates popular tickers being queried more frequently — improves warehouse cache hit rate"
     )
 
+    conn_label = "Concurrent Connections" if connector_type == "ADBC (Arrow)" else "Concurrent JDBC Connections"
     num_connections = st.slider(
-        "Concurrent JDBC Connections",
+        conn_label,
         min_value=1, max_value=300, value=100, step=1,
-        help="Each simulated user gets its own JDBC connection (replicating RDP team setup)"
+        help="Each simulated user gets its own connection"
     )
 
     duration = st.slider("Test Duration (seconds)", min_value=5, max_value=900, value=120, step=5)
@@ -450,10 +461,11 @@ with col_config:
         st.markdown("**Single-ticker deduplicated** — randomly selects 1 ticker:")
         st.code(generate_single_ticker_query()[0], language="sql")
 
+    driver_label = "ADBC (Arrow, native Python)" if connector_type == "ADBC (Arrow)" else "Snowflake JDBC (Java)"
     st.info(
-        f"**{num_connections} JDBC connections** each send randomized queries with different ticker "
+        f"**{num_connections} connections** each send randomized queries with different ticker "
         f"combinations from a pool of **{len(TS_HASH_POOL)} tickers** — simulating diverse user traffic. "
-        f"Driver: Snowflake JDBC (Java). Result cache enabled."
+        f"Driver: {driver_label}. Result cache enabled."
     )
 
     if "test_running" not in st.session_state:
@@ -485,13 +497,34 @@ with col_config:
         st.session_state.sf_cluster = None
         st.session_state.sf_cache = None
 
-        with st.spinner(f"Running JDBC load test: {num_connections} connections × {duration}s on {WAREHOUSE}..."):
+        connector_label = "ADBC" if connector_type == "ADBC (Arrow)" else "JDBC"
+        with st.spinner(f"Running {connector_label} load test: {num_connections} connections × {duration}s on {WAREHOUSE}..."):
             bias_arg = "uniform"
             if "80%" in ticker_bias:
                 bias_arg = "hot80"
             elif "50%" in ticker_bias:
                 bias_arg = "hot50"
-            results = run_load_test(duration, num_connections, query_mix, "async" if "Async" in exec_mode else "sync", bias_arg, limit_arg)
+
+            if connector_type == "ADBC (Arrow)":
+                from adbc_harness import run_adbc_test
+                results = run_adbc_test({
+                    "account": SNOWFLAKE_ACCOUNT,
+                    "user": SNOWFLAKE_USER,
+                    "database": SNOWFLAKE_DATABASE,
+                    "schema": SNOWFLAKE_SCHEMA,
+                    "warehouse": WAREHOUSE,
+                    "table": TABLE,
+                    "key_path": PRIVATE_KEY_PATH,
+                    "private_key_der": _PRIVATE_KEY_DER,
+                    "connections": num_connections,
+                    "duration": duration,
+                    "rampup": min(30, duration // 2),
+                    "mix": QUERY_MIX_MAP.get(query_mix, "mixed"),
+                    "ticker_bias": bias_arg,
+                    "result_limit": int(limit_arg),
+                })
+            else:
+                results = run_load_test(duration, num_connections, query_mix, "async" if "Async" in exec_mode else "sync", bias_arg, limit_arg)
 
         st.session_state.test_results = results
         st.session_state.test_running = False
