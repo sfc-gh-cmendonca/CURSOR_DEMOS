@@ -13,3 +13,7 @@ snowflake_jdbc*.log*
 
 # Generated reports
 exec-summary/
+
+# Python
+__pycache__/
+*.pyc
