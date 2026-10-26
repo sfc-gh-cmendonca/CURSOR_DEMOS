@@ -1,0 +1,411 @@
+name: GTIF_FUND_SV
+description: "GTIF fund: consolidated financials and operating KPIs for Northsea Shipping, AeroLease Partners and HarbourLink Terminals"
+tables:
+  - name: AIRCRAFT
+    description: AeroLease Partners aircraft on lease
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: AL_AIRCRAFT
+    primary_key:
+      columns:
+        - MSN
+    dimensions:
+      - name: AIRCRAFT_TYPE
+        expr: aircraft_type
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: LEASE_END
+        expr: lease_end
+        data_type: DATE
+        access_modifier: public_access
+      - name: MSN
+        description: Manufacturer serial number
+        expr: msn
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+  - name: CAPEX
+    description: "HarbourLink approved capex plan by project and year, budget vs actual"
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: HL_CAPEX_PLAN
+    dimensions:
+      - name: CAPEX_STATUS
+        expr: status
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: CAPEX_TERMINAL
+        expr: terminal
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: CAPEX_YEAR
+        expr: year
+        data_type: "NUMBER(38,0)"
+        access_modifier: public_access
+      - name: PROJECT
+        expr: project
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+    facts:
+      - name: CAPEX_ACTUAL
+        expr: actual_usd
+        data_type: "NUMBER(14,0)"
+        access_modifier: public_access
+      - name: CAPEX_BUDGET
+        expr: budget_usd
+        data_type: "NUMBER(14,0)"
+        access_modifier: public_access
+    metrics:
+      - name: TOTAL_CAPEX_ACTUAL
+        expr: sum(capex.capex_actual)
+        access_modifier: public_access
+      - name: TOTAL_CAPEX_BUDGET
+        expr: sum(capex.capex_budget)
+        access_modifier: public_access
+  - name: FIN
+    description: "Monthly revenue and EBITDA, actual vs budget, per PortCo, in USD. Actuals available to Sep 2026; budget to Dec 2026."
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: PORTCO_FINANCIALS_MONTHLY
+    primary_key:
+      columns:
+        - PORTCO_ID
+        - MONTH_START
+    dimensions:
+      - name: MONTH
+        description: First day of month
+        expr: month_start
+        data_type: DATE
+        access_modifier: public_access
+      - name: QUARTER
+        expr: "date_trunc('quarter', month_start)"
+        data_type: DATE
+        access_modifier: public_access
+    facts:
+      - name: EBITDA_ACTUAL
+        expr: ebitda_actual_usd
+        data_type: "NUMBER(38,2)"
+        access_modifier: public_access
+      - name: EBITDA_BUDGET
+        expr: ebitda_budget_usd
+        data_type: "NUMBER(28,2)"
+        access_modifier: public_access
+      - name: REVENUE_ACTUAL
+        expr: revenue_actual_usd
+        data_type: "NUMBER(38,0)"
+        access_modifier: public_access
+      - name: REVENUE_BUDGET
+        expr: revenue_budget_usd
+        data_type: "NUMBER(24,0)"
+        access_modifier: public_access
+    metrics:
+      - name: EBITDA_VARIANCE_PCT
+        expr: "div0(sum(fin.ebitda_actual), sum(fin.ebitda_budget)) - 1"
+        access_modifier: public_access
+      - name: REVENUE_VARIANCE_PCT
+        description: "Revenue actual vs budget, as fraction"
+        expr: "div0(sum(fin.revenue_actual), sum(fin.revenue_budget)) - 1"
+        access_modifier: public_access
+      - name: TOTAL_EBITDA_ACTUAL
+        expr: sum(fin.ebitda_actual)
+        access_modifier: public_access
+      - name: TOTAL_EBITDA_BUDGET
+        expr: sum(fin.ebitda_budget)
+        access_modifier: public_access
+      - name: TOTAL_REVENUE_ACTUAL
+        expr: sum(fin.revenue_actual)
+        access_modifier: public_access
+      - name: TOTAL_REVENUE_BUDGET
+        expr: sum(fin.revenue_budget)
+        access_modifier: public_access
+  - name: LESSEE
+    description: AeroLease Partners airline lessees
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: AL_LESSEE
+    primary_key:
+      columns:
+        - LESSEE_ID
+    dimensions:
+      - name: INTERNAL_RATING
+        description: Internal credit rating
+        expr: internal_rating
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: LESSEE_COUNTRY
+        expr: country
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: LESSEE_NAME
+        synonyms:
+          - airline
+          - lessee
+        expr: lessee_name
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+  - name: PORTCO
+    description: GTIF portfolio companies (PortCos)
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: PORTCO
+    primary_key:
+      columns:
+        - PORTCO_ID
+    dimensions:
+      - name: PORTCO_ID
+        description: "NSS=Northsea Shipping, ALP=AeroLease Partners, HLT=HarbourLink Terminals"
+        expr: portco_id
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: PORTCO_NAME
+        synonyms:
+          - portfolio company
+          - PortCo
+          - company
+        expr: portco_name
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: SECTOR
+        expr: sector
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+  - name: RENT
+    description: AeroLease monthly rent due and received per aircraft
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: AL_RENT_LEDGER
+    primary_key:
+      columns:
+        - MSN
+        - MONTH_START
+    dimensions:
+      - name: PAYMENT_DATE
+        expr: payment_date
+        data_type: DATE
+        access_modifier: public_access
+      - name: RENT_MONTH
+        expr: month_start
+        data_type: DATE
+        access_modifier: public_access
+    facts:
+      - name: RENT_DUE
+        expr: rent_due_usd
+        data_type: "NUMBER(12,0)"
+        access_modifier: public_access
+      - name: RENT_RECEIVED
+        expr: rent_received_usd
+        data_type: "NUMBER(12,0)"
+        access_modifier: public_access
+    metrics:
+      - name: MONTHS_IN_ARREARS
+        description: Count of aircraft-months unpaid
+        expr: count_if(rent.rent_received < rent.rent_due)
+        access_modifier: public_access
+      - name: RENT_OUTSTANDING
+        description: Unpaid rent / arrears
+        expr: sum(rent.rent_due) - sum(rent.rent_received)
+        access_modifier: public_access
+      - name: TOTAL_RENT_DUE
+        expr: sum(rent.rent_due)
+        access_modifier: public_access
+      - name: TOTAL_RENT_RECEIVED
+        expr: sum(rent.rent_received)
+        access_modifier: public_access
+  - name: RESERVE
+    description: AeroLease cash maintenance reserves held per aircraft as of 30 Sep 2026
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: AL_MAINTENANCE_RESERVE
+    primary_key:
+      columns:
+        - MSN
+    facts:
+      - name: RESERVE_BALANCE
+        expr: reserve_balance_usd
+        data_type: "NUMBER(38,0)"
+        access_modifier: public_access
+    metrics:
+      - name: TOTAL_RESERVES_HELD
+        description: Cash maintenance reserves held
+        expr: sum(reserve.reserve_balance)
+        access_modifier: public_access
+  - name: TERMINAL_M
+    description: "HarbourLink Terminals monthly throughput (TEU), revenue and opex vs budget"
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: HL_TERMINAL_MONTHLY
+    primary_key:
+      columns:
+        - TERMINAL
+        - MONTH_START
+    dimensions:
+      - name: TERMINAL
+        expr: terminal
+        data_type: VARCHAR(20)
+        access_modifier: public_access
+      - name: TERMINAL_MONTH
+        expr: month_start
+        data_type: DATE
+        access_modifier: public_access
+    facts:
+      - name: TEU_ACTUAL
+        expr: teu_actual
+        data_type: "NUMBER(35,0)"
+        access_modifier: public_access
+      - name: TEU_BUDGET
+        expr: teu_budget
+        data_type: "NUMBER(5,0)"
+        access_modifier: public_access
+      - name: T_REVENUE_ACTUAL
+        expr: revenue_actual_usd
+        data_type: "NUMBER(38,0)"
+        access_modifier: public_access
+      - name: T_REVENUE_BUDGET
+        expr: revenue_budget_usd
+        data_type: "NUMBER(8,0)"
+        access_modifier: public_access
+    metrics:
+      - name: TOTAL_TEU_ACTUAL
+        expr: sum(terminal_m.teu_actual)
+        access_modifier: public_access
+      - name: TOTAL_TEU_BUDGET
+        expr: sum(terminal_m.teu_budget)
+        access_modifier: public_access
+  - name: VESSEL
+    description: Northsea Shipping fleet of 150 vessels
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: NS_VESSEL
+    primary_key:
+      columns:
+        - VESSEL_ID
+    dimensions:
+      - name: BUILD_YEAR
+        expr: build_year
+        data_type: "NUMBER(13,0)"
+        access_modifier: public_access
+      - name: CHARTER_TYPE
+        expr: charter_type
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: VESSEL_ID
+        expr: vessel_id
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: VESSEL_NAME
+        synonyms:
+          - ship
+          - vessel
+        expr: vessel_name
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: VESSEL_TYPE
+        description: "Bulk Carrier, Tanker, Container, LNG Carrier"
+        expr: vessel_type
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+  - name: VESSEL_M
+    description: "Northsea Shipping vessel-month operating data: utilisation, off-hire, charter revenue and opex vs budget"
+    base_table:
+      database: GTIF_DEMO
+      schema: PORTCOS
+      table: NS_VESSEL_MONTHLY
+    primary_key:
+      columns:
+        - VESSEL_ID
+        - MONTH_START
+    dimensions:
+      - name: OFFHIRE_REASON
+        expr: offhire_reason
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: VESSEL_MONTH
+        expr: month_start
+        data_type: DATE
+        access_modifier: public_access
+      - name: VESSEL_QUARTER
+        expr: "date_trunc('quarter', month_start)"
+        data_type: DATE
+        access_modifier: public_access
+    facts:
+      - name: AVAILABLE_DAYS
+        expr: available_days
+        data_type: "NUMBER(2,0)"
+        access_modifier: public_access
+      - name: ON_HIRE_DAYS
+        expr: on_hire_days
+        data_type: "NUMBER(32,1)"
+        access_modifier: public_access
+      - name: V_OPEX_ACTUAL
+        expr: opex_actual_usd
+        data_type: "NUMBER(38,0)"
+        access_modifier: public_access
+      - name: V_OPEX_BUDGET
+        expr: opex_budget_usd
+        data_type: "NUMBER(7,0)"
+        access_modifier: public_access
+      - name: V_REVENUE_ACTUAL
+        expr: revenue_actual_usd
+        data_type: "NUMBER(38,0)"
+        access_modifier: public_access
+      - name: V_REVENUE_BUDGET
+        expr: revenue_budget_usd
+        data_type: "NUMBER(11,0)"
+        access_modifier: public_access
+    metrics:
+      - name: UTILISATION
+        description: Fleet/vessel utilisation = on-hire days / available days. Budget is 93%.
+        expr: "div0(sum(vessel_m.on_hire_days), sum(vessel_m.available_days))"
+        access_modifier: public_access
+      - name: VESSEL_OPEX_ACTUAL
+        expr: sum(vessel_m.v_opex_actual)
+        access_modifier: public_access
+      - name: VESSEL_REVENUE_ACTUAL
+        expr: sum(vessel_m.v_revenue_actual)
+        access_modifier: public_access
+      - name: VESSEL_REVENUE_BUDGET
+        expr: sum(vessel_m.v_revenue_budget)
+        access_modifier: public_access
+      - name: VESSEL_REVENUE_SHORTFALL
+        description: Budget minus actual revenue; positive = below budget
+        expr: sum(vessel_m.v_revenue_budget) - sum(vessel_m.v_revenue_actual)
+        access_modifier: public_access
+relationships:
+  - name: AIRCRAFT_LESSEE
+    left_table: AIRCRAFT
+    right_table: LESSEE
+    relationship_columns:
+      - left_column: LESSEE_ID
+        right_column: LESSEE_ID
+  - name: FIN_PORTCO
+    left_table: FIN
+    right_table: PORTCO
+    relationship_columns:
+      - left_column: PORTCO_ID
+        right_column: PORTCO_ID
+  - name: RENT_AIRCRAFT
+    left_table: RENT
+    right_table: AIRCRAFT
+    relationship_columns:
+      - left_column: MSN
+        right_column: MSN
+  - name: RESERVE_AIRCRAFT
+    left_table: RESERVE
+    right_table: AIRCRAFT
+    relationship_columns:
+      - left_column: MSN
+        right_column: MSN
+  - name: VM_VESSEL
+    left_table: VESSEL_M
+    right_table: VESSEL
+    relationship_columns:
+      - left_column: VESSEL_ID
+        right_column: VESSEL_ID
