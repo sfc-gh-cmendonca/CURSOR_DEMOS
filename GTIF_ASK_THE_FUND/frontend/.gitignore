@@ -1,0 +1,7 @@
+node_modules/
+dist/
+keys/
+*.p8
+*.pem
+.env
+*.tsbuildinfo
